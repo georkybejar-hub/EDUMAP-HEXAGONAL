@@ -1,0 +1,21 @@
+# Build y artefactos (.NET)
+bin/
+obj/
+
+# Entorno de desarrollo e IDEs
+.idea/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Variables de entorno y secretos
+.env
+.env.*
+!.env.example
+
+# Archivos del sistema y logs
+Thumbs.db
+.DS_Store
+*.log
