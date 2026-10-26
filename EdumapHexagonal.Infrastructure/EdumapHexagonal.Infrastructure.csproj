@@ -23,4 +23,8 @@
         <ProjectReference Include="..\EdumapHexagonal.Application\EdumapHexagonal.Application.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Adapters\Repositories\" />
+    </ItemGroup>
+
 </Project>

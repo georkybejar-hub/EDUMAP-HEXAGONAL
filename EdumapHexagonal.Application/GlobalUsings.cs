@@ -1,0 +1,16 @@
+global using EdumapHexagonal.Application.Common;
+global using EdumapHexagonal.Application.Common.Dtos;
+global using EdumapHexagonal.Application.Common.Exceptions;
+global using EdumapHexagonal.Application.Common.Models;
+global using EdumapHexagonal.Application.Common.Security;
+global using EdumapHexagonal.Application.Common.Validation;
+global using EdumapHexagonal.Application.Mapping;
+global using EdumapHexagonal.Application.Ports.Out.Persistence;
+global using EdumapHexagonal.Application.Ports.Out.Security;
+global using EdumapHexagonal.Application.Ports.Out.Services;
+global using EdumapHexagonal.Domain.Constants;
+global using EdumapHexagonal.Domain.Exceptions;
+global using EdumapHexagonal.Domain.Models;
+global using EdumapHexagonal.Domain.Services;
+global using FluentValidation;
+global using MediatR;

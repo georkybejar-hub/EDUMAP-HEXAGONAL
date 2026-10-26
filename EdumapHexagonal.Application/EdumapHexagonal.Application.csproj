@@ -7,11 +7,18 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.2.0" />
         <PackageReference Include="MediatR" Version="14.2.0" />
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\EdumapHexagonal.Domain\EdumapHexagonal.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Mapping\" />
+      <Folder Include="Middleware\" />
+      <Folder Include="Services\" />
     </ItemGroup>
 
 </Project>
