@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using EdumapHexagonal.Infrastructure;
+using EdumapHexagonal.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace EdumapHexagonal.Infrastructure.Contexts;

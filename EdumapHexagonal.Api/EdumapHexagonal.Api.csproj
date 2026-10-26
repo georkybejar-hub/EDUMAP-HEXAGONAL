@@ -21,4 +21,8 @@
         <ProjectReference Include="..\EdumapHexagonal.Infrastructure\EdumapHexagonal.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Controllers\" />
+    </ItemGroup>
+
 </Project>
