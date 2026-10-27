@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Sedes.Queries.ListarSedesPorInstitucion;
+﻿namespace EdumapHexagonal.Application.UseCases.Sedes.Queries.ListarSedesPorInstitucion;
 
 public sealed class ListarSedesPorInstitucionHandler(
     IInstitucionRepository instituciones,
@@ -8,7 +8,7 @@ public sealed class ListarSedesPorInstitucionHandler(
     public async Task<IReadOnlyList<SedeDto>> Handle(ListarSedesPorInstitucionQuery request, CancellationToken ct)
     {
         if (!await instituciones.ExisteAsync(request.IdInstitucion, ct))
-            throw new NotFoundException("Institución", request.IdInstitucion);
+            throw new NotFoundException("InstituciÃ³n", request.IdInstitucion);
 
         var lista = await sedes.ListarPorInstitucionAsync(request.IdInstitucion, ct);
 

@@ -1,6 +1,5 @@
-namespace EdumapHexagonal.Application.UseCases.Instituciones.Queries.BuscarInstituciones;
+﻿namespace EdumapHexagonal.Application.UseCases.Instituciones.Queries.BuscarInstituciones;
 
-/// <summary>Buscador público. Consulta la vista vw_buscador_instituciones.</summary>
 public sealed record BuscarInstitucionesQuery(
     string? Texto = null,
     short? IdCategoria = null,

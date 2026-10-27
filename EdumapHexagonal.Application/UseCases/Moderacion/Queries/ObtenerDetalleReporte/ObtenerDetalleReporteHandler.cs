@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Moderacion.Queries.ObtenerDetalleReporte;
+﻿namespace EdumapHexagonal.Application.UseCases.Moderacion.Queries.ObtenerDetalleReporte;
 
 public sealed class ObtenerDetalleReporteHandler(
     IReporteModeracionRepository reportes,

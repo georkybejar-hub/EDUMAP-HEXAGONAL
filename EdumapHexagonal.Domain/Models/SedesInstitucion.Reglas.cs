@@ -1,11 +1,11 @@
-using EdumapHexagonal.Domain.Constants;
+﻿using EdumapHexagonal.Domain.Constants;
 using EdumapHexagonal.Domain.Exceptions;
 
 namespace EdumapHexagonal.Domain.Models;
 
 public partial class SedesInstitucion
 {
-    public const string AreaAtencionPorDefecto = "Admisión e Informes";
+    public const string AreaAtencionPorDefecto = "AdmisiÃ³n e Informes";
 
     public bool EsSedePrincipal() => EsPrincipal == true;
 

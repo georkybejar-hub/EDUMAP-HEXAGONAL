@@ -1,10 +1,9 @@
-namespace EdumapHexagonal.Application.Ports.Out.Persistence;
+﻿namespace EdumapHexagonal.Application.Ports.Out.Persistence;
 
 public interface IRolRepository
 {
     Task<Role?> ObtenerPorIdAsync(short idRol, CancellationToken ct = default);
 
-    /// <summary>Busca sin distinguir mayúsculas.</summary>
     Task<Role?> ObtenerPorNombreAsync(string nombreRol, CancellationToken ct = default);
 
     Task<bool> ExisteNombreAsync(string nombreRol, CancellationToken ct = default);
@@ -13,7 +12,6 @@ public interface IRolRepository
 
     Task<Permiso?> ObtenerPermisoPorIdAsync(short idPermiso, CancellationToken ct = default);
 
-    /// <summary>Ordenados por módulo y código. Si se indica módulo, filtra por él.</summary>
     Task<IReadOnlyList<Permiso>> ListarPermisosAsync(string? moduloSistema, CancellationToken ct = default);
 
     Task<IReadOnlyList<Permiso>> ListarPermisosPorRolAsync(short idRol, CancellationToken ct = default);

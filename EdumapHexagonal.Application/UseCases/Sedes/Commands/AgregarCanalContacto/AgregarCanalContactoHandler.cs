@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Sedes.Commands.AgregarCanalContacto;
+﻿namespace EdumapHexagonal.Application.UseCases.Sedes.Commands.AgregarCanalContacto;
 
 public sealed class AgregarCanalContactoHandler(
     ISedeRepository sedes,

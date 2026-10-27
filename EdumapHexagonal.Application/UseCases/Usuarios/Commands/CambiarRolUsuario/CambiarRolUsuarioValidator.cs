@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Usuarios.Commands.CambiarRolUsuario;
+﻿namespace EdumapHexagonal.Application.UseCases.Usuarios.Commands.CambiarRolUsuario;
 
 public sealed class CambiarRolUsuarioValidator : AbstractValidator<CambiarRolUsuarioCommand>
 {

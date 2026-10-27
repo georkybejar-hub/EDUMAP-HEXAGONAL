@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Resenas.Queries.ListarResenasPorInstitucion;
+﻿namespace EdumapHexagonal.Application.UseCases.Resenas.Queries.ListarResenasPorInstitucion;
 
 public sealed class ListarResenasPorInstitucionHandler(
     IInstitucionRepository instituciones,
@@ -8,11 +8,10 @@ public sealed class ListarResenasPorInstitucionHandler(
     public async Task<ResenasInstitucionDto> Handle(ListarResenasPorInstitucionQuery request, CancellationToken ct)
     {
         if (!await instituciones.ExisteAsync(request.IdInstitucion, ct))
-            throw new NotFoundException("Institución", request.IdInstitucion);
+            throw new NotFoundException("InstituciÃ³n", request.IdInstitucion);
 
         var conteoPorPuntuacion = await resenas.ObtenerDistribucionPuntuacionAsync(request.IdInstitucion, ct);
 
-        // Se devuelven siempre las 5 estrellas, aunque alguna tenga 0 reseñas.
         var distribucion = Enumerable
             .Range(Resena.PuntuacionMinima, Resena.PuntuacionMaxima)
             .Select(p => (short)p)
@@ -40,7 +39,6 @@ public sealed class ListarResenasPorInstitucionHandler(
                 r.FechaActualizacion is not null)));
     }
 
-    /// <summary>Por privacidad solo se muestra el nombre y la inicial del apellido: "María G."</summary>
     private static string NombrePublico(Usuario usuario)
     {
         var nombre = usuario.Nombres.Split(' ', StringSplitOptions.RemoveEmptyEntries).FirstOrDefault() ?? "Usuario";

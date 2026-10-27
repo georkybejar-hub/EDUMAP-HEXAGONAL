@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Resenas.Queries.ListarMisResenas;
+﻿namespace EdumapHexagonal.Application.UseCases.Resenas.Queries.ListarMisResenas;
 
 public sealed class ListarMisResenasHandler(
     IResenaRepository resenas,

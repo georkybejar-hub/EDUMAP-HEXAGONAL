@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Catalogos.Queries.ListarTurnos;
+﻿namespace EdumapHexagonal.Application.UseCases.Catalogos.Queries.ListarTurnos;
 
 public sealed class ListarTurnosHandler(ICatalogoRepository catalogos)
     : IRequestHandler<ListarTurnosQuery, IReadOnlyList<CatalogoItemDto>>

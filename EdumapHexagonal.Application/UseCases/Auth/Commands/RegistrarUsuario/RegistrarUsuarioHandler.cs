@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Auth.Commands.RegistrarUsuario;
+﻿namespace EdumapHexagonal.Application.UseCases.Auth.Commands.RegistrarUsuario;
 
 public sealed class RegistrarUsuarioHandler(
     IUsuarioRepository usuarios,

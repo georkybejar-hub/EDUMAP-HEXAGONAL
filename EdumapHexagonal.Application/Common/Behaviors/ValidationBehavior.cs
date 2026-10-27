@@ -1,9 +1,5 @@
-namespace EdumapHexagonal.Application.Common.Behaviors;
+﻿namespace EdumapHexagonal.Application.Common.Behaviors;
 
-/// <summary>
-/// Ejecuta los validadores de FluentValidation antes de cada handler.
-/// Si hay errores lanza <see cref="ValidationException"/> y el handler no se ejecuta.
-/// </summary>
 public sealed class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> validators)
     : IPipelineBehavior<TRequest, TResponse>
     where TRequest : notnull

@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.OfertasEducativas.Commands.ActualizarCostos;
+﻿namespace EdumapHexagonal.Application.UseCases.OfertasEducativas.Commands.ActualizarCostos;
 
 public sealed class ActualizarCostosHandler(
     IOfertaEducativaRepository ofertas,
@@ -14,9 +14,8 @@ public sealed class ActualizarCostosHandler(
 
         usuarioActual.ValidarGestionInstitucion(oferta.IdSedeNavigation.IdInstitucionNavigation);
 
-        // Los costos de años pasados son históricos: sirven de referencia y no deben alterarse.
         if (oferta.EsDeAnioPasado(reloj.Ahora.Year))
-            throw new BusinessRuleException("No se pueden modificar los costos de una oferta de un año académico pasado.");
+            throw new BusinessRuleException("No se pueden modificar los costos de una oferta de un aÃ±o acadÃ©mico pasado.");
 
         oferta.ActualizarCostos(
             request.CostoInscripcion,

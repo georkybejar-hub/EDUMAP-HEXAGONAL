@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Usuarios.Commands.ActivarDesactivarUsuario;
+﻿namespace EdumapHexagonal.Application.UseCases.Usuarios.Commands.ActivarDesactivarUsuario;
 
 public sealed class ActivarDesactivarUsuarioValidator : AbstractValidator<ActivarDesactivarUsuarioCommand>
 {

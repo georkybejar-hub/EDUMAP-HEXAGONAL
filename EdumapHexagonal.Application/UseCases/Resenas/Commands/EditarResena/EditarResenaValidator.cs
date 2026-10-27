@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Resenas.Commands.EditarResena;
+﻿namespace EdumapHexagonal.Application.UseCases.Resenas.Commands.EditarResena;
 
 public sealed class EditarResenaValidator : AbstractValidator<EditarResenaCommand>
 {

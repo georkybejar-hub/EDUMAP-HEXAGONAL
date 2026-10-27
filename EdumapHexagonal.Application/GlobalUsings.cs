@@ -1,4 +1,4 @@
-global using EdumapHexagonal.Application.Common;
+﻿global using EdumapHexagonal.Application.Common;
 global using EdumapHexagonal.Application.Common.Dtos;
 global using EdumapHexagonal.Application.Common.Exceptions;
 global using EdumapHexagonal.Application.Common.Models;

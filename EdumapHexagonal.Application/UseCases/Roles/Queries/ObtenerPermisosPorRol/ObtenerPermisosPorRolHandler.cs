@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Roles.Queries.ObtenerPermisosPorRol;
+﻿namespace EdumapHexagonal.Application.UseCases.Roles.Queries.ObtenerPermisosPorRol;
 
 public sealed class ObtenerPermisosPorRolHandler(
     IRolRepository roles,

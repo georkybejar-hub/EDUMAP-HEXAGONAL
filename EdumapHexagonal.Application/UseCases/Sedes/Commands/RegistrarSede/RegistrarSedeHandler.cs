@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Sedes.Commands.RegistrarSede;
+﻿namespace EdumapHexagonal.Application.UseCases.Sedes.Commands.RegistrarSede;
 
 public sealed class RegistrarSedeHandler(
     IInstitucionRepository instituciones,
@@ -11,7 +11,7 @@ public sealed class RegistrarSedeHandler(
     public async Task<int> Handle(RegistrarSedeCommand request, CancellationToken ct)
     {
         var institucion = await instituciones.ObtenerPorIdAsync(request.IdInstitucion, ct)
-            ?? throw new NotFoundException("Institución", request.IdInstitucion);
+            ?? throw new NotFoundException("InstituciÃ³n", request.IdInstitucion);
 
         usuarioActual.ValidarGestionInstitucion(institucion);
 
@@ -21,7 +21,6 @@ public sealed class RegistrarSedeHandler(
         var sedesExistentes = await sedes.ContarPorInstitucionAsync(request.IdInstitucion, ct);
         var seraPrincipal = sedesExistentes == 0 || request.EsPrincipal;
 
-        // Solo puede haber una sede principal por institución.
         if (seraPrincipal && sedesExistentes > 0)
         {
             var principalActual = await sedes.ObtenerPrincipalAsync(request.IdInstitucion, ct);

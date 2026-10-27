@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Instituciones.Queries.ObtenerDetalleInstitucion;
+﻿namespace EdumapHexagonal.Application.UseCases.Instituciones.Queries.ObtenerDetalleInstitucion;
 
 public sealed class ObtenerDetalleInstitucionHandler(IInstitucionRepository instituciones)
     : IRequestHandler<ObtenerDetalleInstitucionQuery, InstitucionDetalleDto>
@@ -6,9 +6,8 @@ public sealed class ObtenerDetalleInstitucionHandler(IInstitucionRepository inst
     public async Task<InstitucionDetalleDto> Handle(ObtenerDetalleInstitucionQuery request, CancellationToken ct)
     {
         var i = await instituciones.ObtenerDetalleAsync(request.IdInstitucion, ct)
-            ?? throw new NotFoundException("Institución", request.IdInstitucion);
+            ?? throw new NotFoundException("InstituciÃ³n", request.IdInstitucion);
 
-        // La calificación y el total de reseñas ya vienen calculados en la vista del buscador.
         var resumen = (await instituciones.ObtenerResumenesAsync([request.IdInstitucion], ct)).FirstOrDefault();
 
         var sedes = i.SedesInstitucions

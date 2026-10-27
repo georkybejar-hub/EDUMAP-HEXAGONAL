@@ -25,3 +25,6 @@ appsettings*.json
 Thumbs.db
 .DS_Store
 *.log
+
+# Documentación interna local
+FUNCIONALIDADES.md

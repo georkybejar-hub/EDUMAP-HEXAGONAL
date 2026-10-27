@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.ProgramasAcademicos.Commands.CrearPrograma;
+﻿namespace EdumapHexagonal.Application.UseCases.ProgramasAcademicos.Commands.CrearPrograma;
 
 public sealed class CrearProgramaValidator : AbstractValidator<CrearProgramaCommand>
 {

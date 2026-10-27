@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Usuarios.Queries.ObtenerPerfil;
+﻿namespace EdumapHexagonal.Application.UseCases.Usuarios.Queries.ObtenerPerfil;
 
 public sealed record PerfilDto(
     int IdUsuario,

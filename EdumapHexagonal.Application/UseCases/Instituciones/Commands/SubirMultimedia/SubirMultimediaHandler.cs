@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Instituciones.Commands.SubirMultimedia;
+﻿namespace EdumapHexagonal.Application.UseCases.Instituciones.Commands.SubirMultimedia;
 
 public sealed class SubirMultimediaHandler(
     IInstitucionRepository instituciones,
@@ -9,14 +9,14 @@ public sealed class SubirMultimediaHandler(
     public async Task<int> Handle(SubirMultimediaCommand request, CancellationToken ct)
     {
         var institucion = await instituciones.ObtenerPorIdAsync(request.IdInstitucion, ct)
-            ?? throw new NotFoundException("Institución", request.IdInstitucion);
+            ?? throw new NotFoundException("InstituciÃ³n", request.IdInstitucion);
 
         usuarioActual.ValidarGestionInstitucion(institucion);
 
         var cantidadActual = await instituciones.ContarMultimediaAsync(request.IdInstitucion, ct);
         if (cantidadActual >= ReglasNegocio.MaximoMultimediaPorInstitucion)
             throw new BusinessRuleException(
-                $"La institución ya tiene el máximo de {ReglasNegocio.MaximoMultimediaPorInstitucion} archivos multimedia.");
+                $"La instituciÃ³n ya tiene el mÃ¡ximo de {ReglasNegocio.MaximoMultimediaPorInstitucion} archivos multimedia.");
 
         var multimedia = new MultimediaInstitucion
         {

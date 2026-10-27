@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.OfertasEducativas.Commands.PublicarOferta;
+﻿namespace EdumapHexagonal.Application.UseCases.OfertasEducativas.Commands.PublicarOferta;
 
 public sealed class PublicarOfertaValidator : AbstractValidator<PublicarOfertaCommand>
 {

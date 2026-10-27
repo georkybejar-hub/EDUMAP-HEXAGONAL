@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Sedes.Commands.EliminarCanalContacto;
+﻿namespace EdumapHexagonal.Application.UseCases.Sedes.Commands.EliminarCanalContacto;
 
 public sealed class EliminarCanalContactoHandler(
     ISedeRepository sedes,

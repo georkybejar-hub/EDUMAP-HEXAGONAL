@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Catalogos.Queries.ListarDistritos;
+﻿namespace EdumapHexagonal.Application.UseCases.Catalogos.Queries.ListarDistritos;
 
 public sealed class ListarDistritosValidator : AbstractValidator<ListarDistritosQuery>
 {

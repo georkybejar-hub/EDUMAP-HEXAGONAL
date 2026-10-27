@@ -1,8 +1,5 @@
-namespace EdumapHexagonal.Domain.Constants;
+﻿namespace EdumapHexagonal.Domain.Constants;
 
-/// <summary>
-/// Tipos de archivo multimedia de una institución (columna multimedia_institucion.tipo_medio).
-/// </summary>
 public static class TiposMedio
 {
     public const string Imagen = "IMAGEN";

@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Sedes.Commands.RegistrarSede;
+﻿namespace EdumapHexagonal.Application.UseCases.Sedes.Commands.RegistrarSede;
 
 public sealed class RegistrarSedeValidator : AbstractValidator<RegistrarSedeCommand>
 {

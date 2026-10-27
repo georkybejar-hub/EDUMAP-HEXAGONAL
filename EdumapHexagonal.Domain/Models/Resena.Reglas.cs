@@ -1,4 +1,4 @@
-using EdumapHexagonal.Domain.Exceptions;
+﻿using EdumapHexagonal.Domain.Exceptions;
 
 namespace EdumapHexagonal.Domain.Models;
 
@@ -26,7 +26,7 @@ public partial class Resena
     public void Editar(short puntuacion, string comentario, DateTime fecha)
     {
         if (!EstaVisible())
-            throw new DomainException("No se puede editar una reseña que fue ocultada por moderación.");
+            throw new DomainException("No se puede editar una reseÃ±a que fue ocultada por moderaciÃ³n.");
 
         ValidarContenido(puntuacion, comentario);
         Puntuacion = puntuacion;
@@ -43,7 +43,7 @@ public partial class Resena
     private static void ValidarContenido(short puntuacion, string comentario)
     {
         if (puntuacion is < PuntuacionMinima or > PuntuacionMaxima)
-            throw new DomainException($"La puntuación debe estar entre {PuntuacionMinima} y {PuntuacionMaxima}.");
+            throw new DomainException($"La puntuaciÃ³n debe estar entre {PuntuacionMinima} y {PuntuacionMaxima}.");
 
         var longitud = comentario?.Trim().Length ?? 0;
         if (longitud is < ComentarioLongitudMinima or > ComentarioLongitudMaxima)

@@ -1,9 +1,5 @@
-namespace EdumapHexagonal.Application.Common;
+﻿namespace EdumapHexagonal.Application.Common;
 
-/// <summary>
-/// Límites de negocio configurables de EduMap. Ajusta estos valores según los requerimientos.
-/// (Las reglas propias de cada entidad están en Domain, en los archivos *.Reglas.cs.)
-/// </summary>
 public static class ReglasNegocio
 {
     public const int TamanoPaginaMaximo = 50;
@@ -22,6 +18,5 @@ public static class ReglasNegocio
 
     public const int MotivoReporteLongitudMinima = 10;
 
-    /// <summary>Se pueden publicar ofertas hasta el año actual + este valor.</summary>
     public const int AniosFuturosPermitidosOferta = 2;
 }

@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Usuarios.Commands.ActualizarPerfil;
+﻿namespace EdumapHexagonal.Application.UseCases.Usuarios.Commands.ActualizarPerfil;
 
 public sealed class ActualizarPerfilValidator : AbstractValidator<ActualizarPerfilCommand>
 {

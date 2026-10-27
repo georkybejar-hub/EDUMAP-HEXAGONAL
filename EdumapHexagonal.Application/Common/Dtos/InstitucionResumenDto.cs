@@ -1,6 +1,5 @@
-namespace EdumapHexagonal.Application.Common.Dtos;
+﻿namespace EdumapHexagonal.Application.Common.Dtos;
 
-/// <summary>Tarjeta de institución (buscador, comparador y favoritos). Sale de vw_buscador_instituciones.</summary>
 public sealed record InstitucionResumenDto(
     int IdInstitucion,
     string Nombre,

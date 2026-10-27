@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Instituciones.Commands.CrearInstitucion;
+﻿namespace EdumapHexagonal.Application.UseCases.Instituciones.Commands.CrearInstitucion;
 
 public sealed class CrearInstitucionHandler(
     IInstitucionRepository instituciones,
@@ -24,10 +24,10 @@ public sealed class CrearInstitucionHandler(
         var ruc = Normalizar(request.Ruc);
 
         if (codigoModular is not null && await instituciones.ExisteCodigoModularAsync(codigoModular, null, ct))
-            throw new ConflictException($"Ya existe una institución con el código modular {codigoModular}.");
+            throw new ConflictException($"Ya existe una instituciÃ³n con el cÃ³digo modular {codigoModular}.");
 
         if (ruc is not null && await instituciones.ExisteRucAsync(ruc, null, ct))
-            throw new ConflictException($"Ya existe una institución con el RUC {ruc}.");
+            throw new ConflictException($"Ya existe una instituciÃ³n con el RUC {ruc}.");
 
         var institucion = new Institucione
         {
@@ -41,7 +41,7 @@ public sealed class CrearInstitucionHandler(
             Descripcion = request.Descripcion.Trim(),
             SitioWeb = Normalizar(request.SitioWeb),
             LogoUrl = Normalizar(request.LogoUrl),
-            Verificada = false // Toda institución nueva debe pasar por la verificación de un administrador.
+            Verificada = false
         };
 
         instituciones.Agregar(institucion);
@@ -55,7 +55,7 @@ public sealed class CrearInstitucionHandler(
         if (!esAdmin)
         {
             if (solicitado is not null && solicitado != idUsuario)
-                throw new ForbiddenException("No puedes registrar una institución a nombre de otro representante.");
+                throw new ForbiddenException("No puedes registrar una instituciÃ³n a nombre de otro representante.");
             return idUsuario;
         }
 
@@ -69,7 +69,7 @@ public sealed class CrearInstitucionHandler(
             throw new BusinessRuleException("El usuario indicado no tiene el rol de representante.");
 
         if (representante.Activo == false)
-            throw new BusinessRuleException("El usuario representante está desactivado.");
+            throw new BusinessRuleException("El usuario representante estÃ¡ desactivado.");
 
         return representante.IdUsuario;
     }
@@ -77,10 +77,10 @@ public sealed class CrearInstitucionHandler(
     private async Task ValidarCatalogosAsync(CrearInstitucionCommand request, CancellationToken ct)
     {
         if (!await catalogos.ExisteCategoriaInstitucionAsync(request.IdCategoria, ct))
-            throw new NotFoundException("Categoría de institución", request.IdCategoria);
+            throw new NotFoundException("CategorÃ­a de instituciÃ³n", request.IdCategoria);
 
         if (!await catalogos.ExisteTipoGestionAsync(request.IdTipoGestion, ct))
-            throw new NotFoundException("Tipo de gestión", request.IdTipoGestion);
+            throw new NotFoundException("Tipo de gestiÃ³n", request.IdTipoGestion);
 
         if (request.IdReguladora is { } idReguladora && !await catalogos.ExisteEntidadReguladoraAsync(idReguladora, ct))
             throw new NotFoundException("Entidad reguladora", idReguladora);

@@ -1,9 +1,5 @@
-namespace EdumapHexagonal.Domain.Constants;
+﻿namespace EdumapHexagonal.Domain.Constants;
 
-/// <summary>
-/// Rectángulo aproximado que contiene el territorio peruano.
-/// Se usa para rechazar coordenadas de sedes claramente erróneas.
-/// </summary>
 public static class LimitesPeru
 {
     public const decimal LatitudMinima = -18.40m;

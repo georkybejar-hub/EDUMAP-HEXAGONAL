@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Roles.Queries.ListarRoles;
+﻿namespace EdumapHexagonal.Application.UseCases.Roles.Queries.ListarRoles;
 
 public sealed class ListarRolesHandler(
     IRolRepository roles,

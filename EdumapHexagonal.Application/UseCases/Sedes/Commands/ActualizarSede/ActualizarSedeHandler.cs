@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Sedes.Commands.ActualizarSede;
+﻿namespace EdumapHexagonal.Application.UseCases.Sedes.Commands.ActualizarSede;
 
 public sealed class ActualizarSedeHandler(
     ISedeRepository sedes,
@@ -26,7 +26,7 @@ public sealed class ActualizarSedeHandler(
         else if (!request.EsPrincipal && sede.EsSedePrincipal())
         {
             throw new BusinessRuleException(
-                "La institución debe tener una sede principal. Marca otra sede como principal en lugar de desmarcar esta.");
+                "La instituciÃ³n debe tener una sede principal. Marca otra sede como principal en lugar de desmarcar esta.");
         }
 
         sede.NombreSede = request.NombreSede.Trim();

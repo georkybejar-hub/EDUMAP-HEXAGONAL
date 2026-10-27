@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Catalogos.Queries.ListarModalidades;
+﻿namespace EdumapHexagonal.Application.UseCases.Catalogos.Queries.ListarModalidades;
 
 public sealed class ListarModalidadesHandler(ICatalogoRepository catalogos)
     : IRequestHandler<ListarModalidadesQuery, IReadOnlyList<CatalogoItemDto>>

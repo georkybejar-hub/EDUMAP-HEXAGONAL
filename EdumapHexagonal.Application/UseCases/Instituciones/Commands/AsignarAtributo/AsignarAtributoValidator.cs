@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Instituciones.Commands.AsignarAtributo;
+﻿namespace EdumapHexagonal.Application.UseCases.Instituciones.Commands.AsignarAtributo;
 
 public sealed class AsignarAtributoValidator : AbstractValidator<AsignarAtributoCommand>
 {

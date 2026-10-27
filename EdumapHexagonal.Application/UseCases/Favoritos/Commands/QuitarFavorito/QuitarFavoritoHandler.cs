@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Favoritos.Commands.QuitarFavorito;
+﻿namespace EdumapHexagonal.Application.UseCases.Favoritos.Commands.QuitarFavorito;
 
 public sealed class QuitarFavoritoHandler(
     IFavoritoRepository favoritos,
@@ -11,7 +11,7 @@ public sealed class QuitarFavoritoHandler(
         var idUsuario = usuarioActual.ObtenerIdRequerido();
 
         var favorito = await favoritos.ObtenerAsync(idUsuario, request.IdInstitucion, ct)
-            ?? throw new NotFoundException("La institución no está en tus favoritos.");
+            ?? throw new NotFoundException("La instituciÃ³n no estÃ¡ en tus favoritos.");
 
         favoritos.Eliminar(favorito);
         await unitOfWork.SaveChangesAsync(ct);

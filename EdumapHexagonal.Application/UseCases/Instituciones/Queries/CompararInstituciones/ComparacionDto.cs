@@ -6,7 +6,3 @@ public sealed record ComparacionDto(
     int? IdMasEconomica,
     int? IdMejorCalificada,
     int? IdMasPopular);
-
-public sealed record InstitucionComparadaDto(
-    InstitucionResumenDto Resumen,
-    IReadOnlyList<AtributoInstitucionDto> Atributos);

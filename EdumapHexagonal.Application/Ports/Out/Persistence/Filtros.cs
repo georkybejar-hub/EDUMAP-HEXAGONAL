@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.Ports.Out.Persistence;
+﻿namespace EdumapHexagonal.Application.Ports.Out.Persistence;
 
 public sealed record FiltroUsuarios(
     string? Busqueda,

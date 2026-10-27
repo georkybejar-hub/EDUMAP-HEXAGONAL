@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Sedes.Commands.ActualizarSede;
+﻿namespace EdumapHexagonal.Application.UseCases.Sedes.Commands.ActualizarSede;
 
 public sealed class ActualizarSedeValidator : AbstractValidator<ActualizarSedeCommand>
 {

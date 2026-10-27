@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Catalogos.Queries.ListarEntidadesReguladoras;
+﻿namespace EdumapHexagonal.Application.UseCases.Catalogos.Queries.ListarEntidadesReguladoras;
 
 public sealed class ListarEntidadesReguladorasHandler(ICatalogoRepository catalogos)
     : IRequestHandler<ListarEntidadesReguladorasQuery, IReadOnlyList<EntidadReguladoraDto>>

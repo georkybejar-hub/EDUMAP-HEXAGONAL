@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Roles.Commands.AsignarPermisoARol;
+﻿namespace EdumapHexagonal.Application.UseCases.Roles.Commands.AsignarPermisoARol;
 
 public sealed class AsignarPermisoARolHandler(
     IRolRepository roles,

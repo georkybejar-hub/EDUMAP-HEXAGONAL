@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Roles.Commands.CrearRol;
+﻿namespace EdumapHexagonal.Application.UseCases.Roles.Commands.CrearRol;
 
 public sealed class CrearRolHandler(
     IRolRepository roles,
@@ -10,7 +10,6 @@ public sealed class CrearRolHandler(
     {
         usuarioActual.RequerirAdministrador();
 
-        // Los nombres de rol se guardan en mayúsculas para compararlos de forma uniforme.
         var nombre = request.NombreRol.Trim().ToUpperInvariant();
 
         if (await roles.ExisteNombreAsync(nombre, ct))

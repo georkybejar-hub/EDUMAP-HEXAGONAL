@@ -18,22 +18,3 @@ public sealed record InstitucionDetalleDto(
     IReadOnlyList<SedeDetalleDto> Sedes,
     IReadOnlyList<AtributoInstitucionDto> Atributos,
     IReadOnlyList<MultimediaDto> Multimedia);
-
-public sealed record SedeDetalleDto(
-    int IdSede,
-    string NombreSede,
-    string Direccion,
-    string? Referencia,
-    string Distrito,
-    decimal Latitud,
-    decimal Longitud,
-    bool EsPrincipal,
-    IReadOnlyList<CanalContactoDto> Canales,
-    IReadOnlyList<OfertaResumenDto> Ofertas);
-
-public sealed record MultimediaDto(
-    int IdMultimedia,
-    string UrlArchivo,
-    string TipoMedio,
-    string Titulo,
-    short Orden);

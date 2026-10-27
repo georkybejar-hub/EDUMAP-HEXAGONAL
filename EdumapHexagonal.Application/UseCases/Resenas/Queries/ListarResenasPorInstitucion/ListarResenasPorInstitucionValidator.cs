@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Resenas.Queries.ListarResenasPorInstitucion;
+﻿namespace EdumapHexagonal.Application.UseCases.Resenas.Queries.ListarResenasPorInstitucion;
 
 public sealed class ListarResenasPorInstitucionValidator : AbstractValidator<ListarResenasPorInstitucionQuery>
 {

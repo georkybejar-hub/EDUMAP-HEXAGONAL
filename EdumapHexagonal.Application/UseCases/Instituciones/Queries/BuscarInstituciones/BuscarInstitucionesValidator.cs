@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Instituciones.Queries.BuscarInstituciones;
+﻿namespace EdumapHexagonal.Application.UseCases.Instituciones.Queries.BuscarInstituciones;
 
 public sealed class BuscarInstitucionesValidator : AbstractValidator<BuscarInstitucionesQuery>
 {

@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Instituciones.Commands.VerificarInstitucion;
+﻿namespace EdumapHexagonal.Application.UseCases.Instituciones.Commands.VerificarInstitucion;
 
 public sealed class VerificarInstitucionHandler(
     IInstitucionRepository instituciones,
@@ -12,7 +12,7 @@ public sealed class VerificarInstitucionHandler(
         usuarioActual.RequerirAdministrador();
 
         var institucion = await instituciones.ObtenerPorIdAsync(request.IdInstitucion, ct)
-            ?? throw new NotFoundException("Institución", request.IdInstitucion);
+            ?? throw new NotFoundException("InstituciÃ³n", request.IdInstitucion);
 
         if (!request.Verificada)
         {
@@ -24,12 +24,11 @@ public sealed class VerificarInstitucionHandler(
         if (institucion.EstaVerificada())
             return;
 
-        // Requisitos mínimos para que una institución aparezca como verificada.
         if (string.IsNullOrWhiteSpace(institucion.CodigoModular) && string.IsNullOrWhiteSpace(institucion.Ruc))
-            throw new BusinessRuleException("La institución debe tener código modular o RUC para ser verificada.");
+            throw new BusinessRuleException("La instituciÃ³n debe tener cÃ³digo modular o RUC para ser verificada.");
 
         if (await sedes.ContarPorInstitucionAsync(institucion.IdInstitucion, ct) == 0)
-            throw new BusinessRuleException("La institución debe tener al menos una sede registrada para ser verificada.");
+            throw new BusinessRuleException("La instituciÃ³n debe tener al menos una sede registrada para ser verificada.");
 
         institucion.Verificar();
         await unitOfWork.SaveChangesAsync(ct);

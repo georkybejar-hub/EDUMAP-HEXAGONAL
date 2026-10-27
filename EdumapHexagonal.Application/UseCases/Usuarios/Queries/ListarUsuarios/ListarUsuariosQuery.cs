@@ -1,6 +1,5 @@
-namespace EdumapHexagonal.Application.UseCases.Usuarios.Queries.ListarUsuarios;
+﻿namespace EdumapHexagonal.Application.UseCases.Usuarios.Queries.ListarUsuarios;
 
-/// <summary>Solo administradores.</summary>
 public sealed record ListarUsuariosQuery(
     string? Busqueda = null,
     short? IdRol = null,

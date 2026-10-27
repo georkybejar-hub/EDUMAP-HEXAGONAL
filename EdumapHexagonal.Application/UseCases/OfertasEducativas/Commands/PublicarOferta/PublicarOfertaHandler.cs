@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.OfertasEducativas.Commands.PublicarOferta;
+﻿namespace EdumapHexagonal.Application.UseCases.OfertasEducativas.Commands.PublicarOferta;
 
 public sealed class PublicarOfertaHandler(
     ISedeRepository sedes,
@@ -21,15 +21,14 @@ public sealed class PublicarOfertaHandler(
         var anioActual = reloj.Ahora.Year;
         var anioMaximo = anioActual + ReglasNegocio.AniosFuturosPermitidosOferta;
         if (request.AnioAcademico < anioActual || request.AnioAcademico > anioMaximo)
-            throw new BusinessRuleException($"El año académico debe estar entre {anioActual} y {anioMaximo}.");
+            throw new BusinessRuleException($"El aÃ±o acadÃ©mico debe estar entre {anioActual} y {anioMaximo}.");
 
         var programa = await programas.ObtenerPorIdAsync(request.IdPrograma, ct)
-            ?? throw new NotFoundException("Programa académico", request.IdPrograma);
+            ?? throw new NotFoundException("Programa acadÃ©mico", request.IdPrograma);
 
-        // Un colegio no puede ofrecer una carrera universitaria y viceversa.
         if (programa.IdCategoria != institucion.IdCategoria)
             throw new BusinessRuleException(
-                $"El programa '{programa.NombrePrograma}' no corresponde a la categoría de la institución.");
+                $"El programa '{programa.NombrePrograma}' no corresponde a la categorÃ­a de la instituciÃ³n.");
 
         if (!await catalogos.ExisteModalidadAsync(request.IdModalidad, ct))
             throw new NotFoundException("Modalidad de estudio", request.IdModalidad);
@@ -40,7 +39,7 @@ public sealed class PublicarOfertaHandler(
         if (await ofertas.ExisteCombinacionAsync(
                 request.IdSede, request.IdPrograma, request.IdModalidad, request.IdTurno, request.AnioAcademico, ct))
             throw new ConflictException(
-                "Ya existe una oferta para ese programa, modalidad y turno en esta sede para el mismo año académico.");
+                "Ya existe una oferta para ese programa, modalidad y turno en esta sede para el mismo aÃ±o acadÃ©mico.");
 
         var oferta = OfertasEducativa.Crear(
             request.IdSede,

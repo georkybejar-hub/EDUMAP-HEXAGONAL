@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.OfertasEducativas.Commands.EliminarOferta;
+﻿namespace EdumapHexagonal.Application.UseCases.OfertasEducativas.Commands.EliminarOferta;
 
 public sealed class EliminarOfertaHandler(
     IOfertaEducativaRepository ofertas,

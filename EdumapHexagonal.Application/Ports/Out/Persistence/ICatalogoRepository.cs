@@ -1,6 +1,5 @@
-namespace EdumapHexagonal.Application.Ports.Out.Persistence;
+﻿namespace EdumapHexagonal.Application.Ports.Out.Persistence;
 
-/// <summary>Tablas de catálogo (listas de valores). Todos los listados vienen ordenados por nombre.</summary>
 public interface ICatalogoRepository
 {
     Task<IReadOnlyList<CategoriasInstitucion>> ListarCategoriasInstitucionAsync(CancellationToken ct = default);
@@ -13,10 +12,8 @@ public interface ICatalogoRepository
 
     Task<IReadOnlyList<TurnosEstudio>> ListarTurnosAsync(CancellationToken ct = default);
 
-    /// <summary>Si se indica búsqueda, filtra por nombre o ubigeo.</summary>
     Task<IReadOnlyList<Distrito>> ListarDistritosAsync(string? busqueda, CancellationToken ct = default);
 
-    /// <summary>Incluye los atributos de cada categoría.</summary>
     Task<IReadOnlyList<CategoriasAtributo>> ListarCategoriasAtributoAsync(short? idCatAtributo, CancellationToken ct = default);
 
     Task<bool> ExisteCategoriaInstitucionAsync(short idCategoria, CancellationToken ct = default);

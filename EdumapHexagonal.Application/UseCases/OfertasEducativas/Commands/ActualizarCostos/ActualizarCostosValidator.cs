@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.OfertasEducativas.Commands.ActualizarCostos;
+﻿namespace EdumapHexagonal.Application.UseCases.OfertasEducativas.Commands.ActualizarCostos;
 
 public sealed class ActualizarCostosValidator : AbstractValidator<ActualizarCostosCommand>
 {

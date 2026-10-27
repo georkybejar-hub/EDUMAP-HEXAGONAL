@@ -1,11 +1,5 @@
-namespace EdumapHexagonal.Application.UseCases.Instituciones.Commands.CrearInstitucion;
+﻿namespace EdumapHexagonal.Application.UseCases.Instituciones.Commands.CrearInstitucion;
 
-/// <summary>
-/// Registra una institución (queda sin verificar).
-/// Representantes: quedan asignados como representante automáticamente.
-/// Administradores: pueden indicar el representante en <see cref="IdRepresentante"/>.
-/// </summary>
-/// <returns>Id de la institución creada.</returns>
 public sealed record CrearInstitucionCommand(
     short IdCategoria,
     short IdTipoGestion,

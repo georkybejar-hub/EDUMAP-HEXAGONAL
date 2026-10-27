@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Catalogos.Queries.ListarCategoriasInstitucion;
+﻿namespace EdumapHexagonal.Application.UseCases.Catalogos.Queries.ListarCategoriasInstitucion;
 
 public sealed class ListarCategoriasInstitucionHandler(ICatalogoRepository catalogos)
     : IRequestHandler<ListarCategoriasInstitucionQuery, IReadOnlyList<CategoriaInstitucionDto>>

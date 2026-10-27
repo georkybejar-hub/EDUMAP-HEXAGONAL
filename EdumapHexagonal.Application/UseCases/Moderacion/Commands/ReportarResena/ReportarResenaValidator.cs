@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Moderacion.Commands.ReportarResena;
+﻿namespace EdumapHexagonal.Application.UseCases.Moderacion.Commands.ReportarResena;
 
 public sealed class ReportarResenaValidator : AbstractValidator<ReportarResenaCommand>
 {

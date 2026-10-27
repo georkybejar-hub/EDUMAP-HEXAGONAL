@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Moderacion.Queries.ListarReportesPendientes;
+﻿namespace EdumapHexagonal.Application.UseCases.Moderacion.Queries.ListarReportesPendientes;
 
 public sealed class ListarReportesPendientesHandler(
     IReporteModeracionRepository reportes,

@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.ProgramasAcademicos.Commands.CrearPrograma;
+﻿namespace EdumapHexagonal.Application.UseCases.ProgramasAcademicos.Commands.CrearPrograma;
 
 public sealed class CrearProgramaHandler(
     IProgramaAcademicoRepository programas,
@@ -12,12 +12,12 @@ public sealed class CrearProgramaHandler(
         usuarioActual.RequerirAdministrador();
 
         if (!await catalogos.ExisteCategoriaInstitucionAsync(request.IdCategoria, ct))
-            throw new NotFoundException("Categoría de institución", request.IdCategoria);
+            throw new NotFoundException("CategorÃ­a de instituciÃ³n", request.IdCategoria);
 
         var nombre = request.NombrePrograma.Trim();
 
         if (await programas.ExisteNombreAsync(request.IdCategoria, nombre, null, ct))
-            throw new ConflictException($"Ya existe el programa '{nombre}' en esta categoría.");
+            throw new ConflictException($"Ya existe el programa '{nombre}' en esta categorÃ­a.");
 
         var programa = new ProgramasAcademico
         {

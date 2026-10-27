@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Favoritos.Commands.AgregarFavorito;
+﻿namespace EdumapHexagonal.Application.UseCases.Favoritos.Commands.AgregarFavorito;
 
 public sealed class AgregarFavoritoHandler(
     IInstitucionRepository instituciones,
@@ -12,14 +12,14 @@ public sealed class AgregarFavoritoHandler(
         var idUsuario = usuarioActual.ObtenerIdRequerido();
 
         if (!await instituciones.ExisteAsync(request.IdInstitucion, ct))
-            throw new NotFoundException("Institución", request.IdInstitucion);
+            throw new NotFoundException("InstituciÃ³n", request.IdInstitucion);
 
         if (await favoritos.ObtenerAsync(idUsuario, request.IdInstitucion, ct) is not null)
-            throw new ConflictException("La institución ya está en tus favoritos.");
+            throw new ConflictException("La instituciÃ³n ya estÃ¡ en tus favoritos.");
 
         if (await favoritos.ContarPorUsuarioAsync(idUsuario, ct) >= ReglasNegocio.MaximoFavoritos)
             throw new BusinessRuleException(
-                $"Puedes guardar como máximo {ReglasNegocio.MaximoFavoritos} instituciones. Quita alguna para agregar otra.");
+                $"Puedes guardar como mÃ¡ximo {ReglasNegocio.MaximoFavoritos} instituciones. Quita alguna para agregar otra.");
 
         favoritos.Agregar(new FavoritosComparador
         {

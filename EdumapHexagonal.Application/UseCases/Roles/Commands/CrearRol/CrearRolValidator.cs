@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Roles.Commands.CrearRol;
+﻿namespace EdumapHexagonal.Application.UseCases.Roles.Commands.CrearRol;
 
 public sealed class CrearRolValidator : AbstractValidator<CrearRolCommand>
 {

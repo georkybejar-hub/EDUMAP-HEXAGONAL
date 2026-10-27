@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.ProgramasAcademicos.Commands.ActualizarPrograma;
+﻿namespace EdumapHexagonal.Application.UseCases.ProgramasAcademicos.Commands.ActualizarPrograma;
 
 public sealed class ActualizarProgramaValidator : AbstractValidator<ActualizarProgramaCommand>
 {

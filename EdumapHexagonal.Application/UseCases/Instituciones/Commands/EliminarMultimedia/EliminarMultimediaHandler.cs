@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Instituciones.Commands.EliminarMultimedia;
+﻿namespace EdumapHexagonal.Application.UseCases.Instituciones.Commands.EliminarMultimedia;
 
 public sealed class EliminarMultimediaHandler(
     IInstitucionRepository instituciones,

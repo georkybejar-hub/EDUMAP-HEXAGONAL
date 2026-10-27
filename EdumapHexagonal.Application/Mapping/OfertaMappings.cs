@@ -1,8 +1,7 @@
-namespace EdumapHexagonal.Application.Mapping;
+﻿namespace EdumapHexagonal.Application.Mapping;
 
 public static class OfertaMappings
 {
-    /// <summary>Requiere que la oferta tenga cargados programa, modalidad y turno.</summary>
     public static OfertaResumenDto ToResumenDto(this OfertasEducativa o) => new(
         o.IdOferta,
         o.IdPrograma,

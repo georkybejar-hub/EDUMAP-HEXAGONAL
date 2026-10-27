@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Resenas.Commands.PublicarResena;
+﻿namespace EdumapHexagonal.Application.UseCases.Resenas.Commands.PublicarResena;
 
 public sealed class PublicarResenaHandler(
     IInstitucionRepository instituciones,
@@ -12,16 +12,14 @@ public sealed class PublicarResenaHandler(
         var idUsuario = usuarioActual.ObtenerIdRequerido();
 
         var institucion = await instituciones.ObtenerPorIdAsync(request.IdInstitucion, ct)
-            ?? throw new NotFoundException("Institución", request.IdInstitucion);
+            ?? throw new NotFoundException("InstituciÃ³n", request.IdInstitucion);
 
-        // Evita que una institución infle su propia calificación.
         if (institucion.EsGestionadaPor(idUsuario))
-            throw new BusinessRuleException("No puedes reseñar una institución que tú representas.");
+            throw new BusinessRuleException("No puedes reseÃ±ar una instituciÃ³n que tÃº representas.");
 
         if (await resenas.ExisteDeUsuarioAsync(request.IdInstitucion, idUsuario, ct))
-            throw new ConflictException("Ya publicaste una reseña para esta institución. Puedes editarla.");
+            throw new ConflictException("Ya publicaste una reseÃ±a para esta instituciÃ³n. Puedes editarla.");
 
-        // Las reglas de contenido (puntuación 1-5, longitud del comentario) las aplica el dominio.
         var resena = Resena.Crear(request.IdInstitucion, idUsuario, request.Puntuacion, request.Comentario);
 
         resenas.Agregar(resena);

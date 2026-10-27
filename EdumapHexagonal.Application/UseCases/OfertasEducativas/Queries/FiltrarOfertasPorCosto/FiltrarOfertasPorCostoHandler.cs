@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.OfertasEducativas.Queries.FiltrarOfertasPorCosto;
+﻿namespace EdumapHexagonal.Application.UseCases.OfertasEducativas.Queries.FiltrarOfertasPorCosto;
 
 public sealed class FiltrarOfertasPorCostoHandler(IOfertaEducativaRepository ofertas)
     : IRequestHandler<FiltrarOfertasPorCostoQuery, PagedResult<OfertaBusquedaDto>>

@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Resenas.Commands.EditarResena;
+﻿namespace EdumapHexagonal.Application.UseCases.Resenas.Commands.EditarResena;
 
 public sealed class EditarResenaHandler(
     IResenaRepository resenas,
@@ -12,10 +12,10 @@ public sealed class EditarResenaHandler(
         var idUsuario = usuarioActual.ObtenerIdRequerido();
 
         var resena = await resenas.ObtenerPorIdAsync(request.IdResena, ct)
-            ?? throw new NotFoundException("Reseña", request.IdResena);
+            ?? throw new NotFoundException("ReseÃ±a", request.IdResena);
 
         if (!resena.EsAutor(idUsuario))
-            throw new ForbiddenException("Solo el autor puede editar esta reseña.");
+            throw new ForbiddenException("Solo el autor puede editar esta reseÃ±a.");
 
         resena.Editar(request.Puntuacion, request.Comentario, reloj.Ahora);
 

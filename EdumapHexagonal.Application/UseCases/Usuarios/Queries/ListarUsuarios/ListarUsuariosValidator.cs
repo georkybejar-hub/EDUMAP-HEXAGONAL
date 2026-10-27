@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Usuarios.Queries.ListarUsuarios;
+﻿namespace EdumapHexagonal.Application.UseCases.Usuarios.Queries.ListarUsuarios;
 
 public sealed class ListarUsuariosValidator : AbstractValidator<ListarUsuariosQuery>
 {

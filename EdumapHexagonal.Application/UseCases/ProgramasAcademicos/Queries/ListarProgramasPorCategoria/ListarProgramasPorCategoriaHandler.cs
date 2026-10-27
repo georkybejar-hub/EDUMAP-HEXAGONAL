@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.ProgramasAcademicos.Queries.ListarProgramasPorCategoria;
+﻿namespace EdumapHexagonal.Application.UseCases.ProgramasAcademicos.Queries.ListarProgramasPorCategoria;
 
 public sealed class ListarProgramasPorCategoriaHandler(
     IProgramaAcademicoRepository programas,
@@ -8,7 +8,7 @@ public sealed class ListarProgramasPorCategoriaHandler(
     public async Task<IReadOnlyList<ProgramaDto>> Handle(ListarProgramasPorCategoriaQuery request, CancellationToken ct)
     {
         if (!await catalogos.ExisteCategoriaInstitucionAsync(request.IdCategoria, ct))
-            throw new NotFoundException("Categoría de institución", request.IdCategoria);
+            throw new NotFoundException("CategorÃ­a de instituciÃ³n", request.IdCategoria);
 
         var area = string.IsNullOrWhiteSpace(request.AreaAcademica) ? null : request.AreaAcademica.Trim();
         var lista = await programas.ListarPorCategoriaAsync(request.IdCategoria, area, ct);

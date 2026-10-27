@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Instituciones.Commands.SubirMultimedia;
+﻿namespace EdumapHexagonal.Application.UseCases.Instituciones.Commands.SubirMultimedia;
 
 public sealed class SubirMultimediaValidator : AbstractValidator<SubirMultimediaCommand>
 {

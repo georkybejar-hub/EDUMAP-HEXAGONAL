@@ -1,4 +1,4 @@
-using EdumapHexagonal.Domain.Constants;
+﻿using EdumapHexagonal.Domain.Constants;
 using EdumapHexagonal.Domain.Exceptions;
 
 namespace EdumapHexagonal.Domain.Models;
@@ -8,10 +8,10 @@ public partial class ReportesModeracion
     public static ReportesModeracion Crear(Resena resena, int idUsuarioReporta, string motivo)
     {
         if (resena.EsAutor(idUsuarioReporta))
-            throw new DomainException("No puedes reportar tu propia reseña.");
+            throw new DomainException("No puedes reportar tu propia reseÃ±a.");
 
         if (!resena.EstaVisible())
-            throw new DomainException("La reseña ya fue ocultada por moderación.");
+            throw new DomainException("La reseÃ±a ya fue ocultada por moderaciÃ³n.");
 
         if (string.IsNullOrWhiteSpace(motivo))
             throw new DomainException("El motivo del reporte es obligatorio.");
@@ -27,14 +27,13 @@ public partial class ReportesModeracion
 
     public bool EstaPendiente() => EstadoRevision == EstadosRevision.Pendiente;
 
-    /// <param name="procede">true: el reporte es válido y la reseña debe ocultarse.</param>
     public void Resolver(int idAdminRevisor, bool procede, string resolucion, DateTime fecha)
     {
         if (!EstaPendiente())
             throw new DomainException("El reporte ya fue resuelto.");
 
         if (string.IsNullOrWhiteSpace(resolucion))
-            throw new DomainException("Debes indicar la resolución del reporte.");
+            throw new DomainException("Debes indicar la resoluciÃ³n del reporte.");
 
         IdAdminRevisor = idAdminRevisor;
         EstadoRevision = procede ? EstadosRevision.Aprobado : EstadosRevision.Rechazado;

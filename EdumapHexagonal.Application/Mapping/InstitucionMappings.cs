@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.Mapping;
+﻿namespace EdumapHexagonal.Application.Mapping;
 
 public static class InstitucionMappings
 {
@@ -18,7 +18,6 @@ public static class InstitucionMappings
         v.TotalResenas ?? 0,
         v.TotalGuardadosComparador ?? 0);
 
-    /// <summary>Requiere que el atributo tenga cargado el atributo y su categoría.</summary>
     public static AtributoInstitucionDto ToDto(this InstitucionAtributo a) => new(
         a.IdAtributo,
         a.IdAtributoNavigation.NombreAtributo,

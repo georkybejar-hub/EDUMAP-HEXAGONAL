@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.Common.Dtos;
+﻿namespace EdumapHexagonal.Application.Common.Dtos;
 
 public sealed record AtributoInstitucionDto(
     int IdAtributo,

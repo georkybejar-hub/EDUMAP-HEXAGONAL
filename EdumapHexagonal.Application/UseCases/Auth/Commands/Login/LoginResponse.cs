@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Auth.Commands.Login;
+﻿namespace EdumapHexagonal.Application.UseCases.Auth.Commands.Login;
 
 public sealed record LoginResponse(
     int IdUsuario,

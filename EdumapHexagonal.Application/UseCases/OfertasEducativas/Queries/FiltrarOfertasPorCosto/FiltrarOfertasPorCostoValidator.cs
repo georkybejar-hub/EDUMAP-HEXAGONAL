@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.OfertasEducativas.Queries.FiltrarOfertasPorCosto;
+﻿namespace EdumapHexagonal.Application.UseCases.OfertasEducativas.Queries.FiltrarOfertasPorCosto;
 
 public sealed class FiltrarOfertasPorCostoValidator : AbstractValidator<FiltrarOfertasPorCostoQuery>
 {
@@ -10,8 +10,8 @@ public sealed class FiltrarOfertasPorCostoValidator : AbstractValidator<FiltrarO
         RuleFor(x => x)
             .Must(x => x.PensionMinima <= x.PensionMaxima)
             .When(x => x.PensionMinima is not null && x.PensionMaxima is not null)
-            .WithName("Rango de pensión")
-            .WithMessage("La pensión mínima no puede ser mayor que la pensión máxima.");
+            .WithName("Rango de pensiÃ³n")
+            .WithMessage("La pensiÃ³n mÃ­nima no puede ser mayor que la pensiÃ³n mÃ¡xima.");
 
         this.ReglasPaginacion();
     }

@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Moderacion.Commands.ResolverReporte;
+﻿namespace EdumapHexagonal.Application.UseCases.Moderacion.Commands.ResolverReporte;
 
 public sealed class ResolverReporteValidator : AbstractValidator<ResolverReporteCommand>
 {

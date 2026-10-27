@@ -14,14 +14,32 @@ public sealed class ListarFavoritosHandler(
         if (lista.Count == 0)
             return [];
 
-        // Las tarjetas salen de la vista del buscador (calificación, pensiones, etc. ya calculadas).
         var resumenes = (await instituciones.ObtenerResumenesAsync(lista.Select(f => f.IdInstitucion).ToList(), ct))
             .Where(v => v.IdInstitucion is not null)
             .ToDictionary(v => v.IdInstitucion!.Value);
 
         return lista
             .Where(f => resumenes.ContainsKey(f.IdInstitucion))
-            .Select(f => new FavoritoDto(resumenes[f.IdInstitucion].ToResumenDto(), f.FechaAgregado))
+            .Select(f =>
+            {
+                var r = resumenes[f.IdInstitucion].ToResumenDto();
+                return new FavoritoDto(
+                    r.IdInstitucion,
+                    r.Nombre,
+                    r.Categoria,
+                    r.TipoGestion,
+                    r.EnteRegulador,
+                    r.Distrito,
+                    r.Direccion,
+                    r.Latitud,
+                    r.Longitud,
+                    r.PensionMinima,
+                    r.PensionMaxima,
+                    r.CalificacionPromedio,
+                    r.TotalResenas,
+                    r.TotalGuardados,
+                    f.FechaAgregado);
+            })
             .ToList();
     }
 }

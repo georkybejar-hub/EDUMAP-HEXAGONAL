@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Usuarios.Commands.CambiarRolUsuario;
+﻿namespace EdumapHexagonal.Application.UseCases.Usuarios.Commands.CambiarRolUsuario;
 
 public sealed class CambiarRolUsuarioHandler(
     IUsuarioRepository usuarios,
@@ -11,7 +11,6 @@ public sealed class CambiarRolUsuarioHandler(
     {
         var idAdmin = usuarioActual.RequerirAdministrador();
 
-        // Evita que un administrador se quite el rol a sí mismo y el sistema se quede sin administradores.
         if (request.IdUsuario == idAdmin)
             throw new BusinessRuleException("No puedes cambiar tu propio rol.");
 

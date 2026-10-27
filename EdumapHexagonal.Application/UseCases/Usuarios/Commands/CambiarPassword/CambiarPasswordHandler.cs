@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Usuarios.Commands.CambiarPassword;
+﻿namespace EdumapHexagonal.Application.UseCases.Usuarios.Commands.CambiarPassword;
 
 public sealed class CambiarPasswordHandler(
     IUsuarioRepository usuarios,
@@ -15,7 +15,7 @@ public sealed class CambiarPasswordHandler(
             ?? throw new NotFoundException("Usuario", idUsuario);
 
         if (!passwordHasher.Verificar(request.PasswordActual, usuario.PasswordHash))
-            throw new BusinessRuleException("La contraseña actual es incorrecta.");
+            throw new BusinessRuleException("La contraseÃ±a actual es incorrecta.");
 
         usuario.PasswordHash = passwordHasher.Hash(request.PasswordNueva);
 

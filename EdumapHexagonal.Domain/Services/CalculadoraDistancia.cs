@@ -1,15 +1,11 @@
-namespace EdumapHexagonal.Domain.Services;
+﻿namespace EdumapHexagonal.Domain.Services;
 
-/// <summary>Rectángulo de búsqueda geográfica (pre-filtro barato antes de calcular distancias reales).</summary>
 public readonly record struct AreaGeografica(
     decimal LatitudMinima,
     decimal LatitudMaxima,
     decimal LongitudMinima,
     decimal LongitudMaxima);
 
-/// <summary>
-/// Cálculos geográficos del dominio (fórmula de Haversine).
-/// </summary>
 public static class CalculadoraDistancia
 {
     private const double RadioTierraKm = 6371.0;
@@ -29,9 +25,6 @@ public static class CalculadoraDistancia
         return RadioTierraKm * 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
     }
 
-    /// <summary>
-    /// Devuelve el rectángulo que contiene el círculo de <paramref name="radioKm"/> alrededor del punto.
-    /// </summary>
     public static AreaGeografica AreaAlrededor(decimal latitud, decimal longitud, decimal radioKm)
     {
         var deltaLat = (double)radioKm / KmPorGradoLatitud;

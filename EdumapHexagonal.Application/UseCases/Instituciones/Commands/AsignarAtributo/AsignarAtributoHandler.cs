@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Instituciones.Commands.AsignarAtributo;
+﻿namespace EdumapHexagonal.Application.UseCases.Instituciones.Commands.AsignarAtributo;
 
 public sealed class AsignarAtributoHandler(
     IInstitucionRepository instituciones,
@@ -10,7 +10,7 @@ public sealed class AsignarAtributoHandler(
     public async Task Handle(AsignarAtributoCommand request, CancellationToken ct)
     {
         var institucion = await instituciones.ObtenerPorIdAsync(request.IdInstitucion, ct)
-            ?? throw new NotFoundException("Institución", request.IdInstitucion);
+            ?? throw new NotFoundException("InstituciÃ³n", request.IdInstitucion);
 
         usuarioActual.ValidarGestionInstitucion(institucion);
 

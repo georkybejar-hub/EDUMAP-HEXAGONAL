@@ -19,11 +19,27 @@ public sealed class CompararInstitucionesHandler(IInstitucionRepository instituc
             .GroupBy(a => a.IdInstitucion)
             .ToDictionary(g => g.Key, g => g.Select(a => a.ToDto()).OrderBy(a => a.Atributo).ToList());
 
-        // Se respeta el orden en que el usuario eligió las instituciones.
         var comparadas = ids
-            .Select(id => new InstitucionComparadaDto(
-                resumenes[id].ToResumenDto(),
-                atributosPorInstitucion.GetValueOrDefault(id) ?? new List<AtributoInstitucionDto>()))
+            .Select(id =>
+            {
+                var r = resumenes[id].ToResumenDto();
+                return new InstitucionComparadaDto(
+                    r.IdInstitucion,
+                    r.Nombre,
+                    r.Categoria,
+                    r.TipoGestion,
+                    r.EnteRegulador,
+                    r.Distrito,
+                    r.Direccion,
+                    r.Latitud,
+                    r.Longitud,
+                    r.PensionMinima,
+                    r.PensionMaxima,
+                    r.CalificacionPromedio,
+                    r.TotalResenas,
+                    r.TotalGuardados,
+                    atributosPorInstitucion.GetValueOrDefault(id) ?? new List<AtributoInstitucionDto>());
+            })
             .ToList();
 
         var atributosEnComun = comparadas
@@ -36,13 +52,13 @@ public sealed class CompararInstitucionesHandler(IInstitucionRepository instituc
             comparadas,
             atributosEnComun,
             IdMasEconomica: comparadas
-                .Where(c => c.Resumen.PensionMinima is not null)
-                .MinBy(c => c.Resumen.PensionMinima)?.Resumen.IdInstitucion,
+                .Where(c => c.PensionMinima is not null)
+                .MinBy(c => c.PensionMinima)?.IdInstitucion,
             IdMejorCalificada: comparadas
-                .Where(c => c.Resumen.TotalResenas > 0)
-                .MaxBy(c => c.Resumen.CalificacionPromedio)?.Resumen.IdInstitucion,
+                .Where(c => c.TotalResenas > 0)
+                .MaxBy(c => c.CalificacionPromedio)?.IdInstitucion,
             IdMasPopular: comparadas
-                .Where(c => c.Resumen.TotalGuardados > 0)
-                .MaxBy(c => c.Resumen.TotalGuardados)?.Resumen.IdInstitucion);
+                .Where(c => c.TotalGuardados > 0)
+                .MaxBy(c => c.TotalGuardados)?.IdInstitucion);
     }
 }

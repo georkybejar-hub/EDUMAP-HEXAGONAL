@@ -1,15 +1,13 @@
-namespace EdumapHexagonal.Application.UseCases.Sedes.Queries.ObtenerSedesCercanas;
+﻿namespace EdumapHexagonal.Application.UseCases.Sedes.Queries.ObtenerSedesCercanas;
 
 public sealed class ObtenerSedesCercanasHandler(ISedeRepository sedes)
     : IRequestHandler<ObtenerSedesCercanasQuery, IReadOnlyList<SedeCercanaDto>>
 {
     public async Task<IReadOnlyList<SedeCercanaDto>> Handle(ObtenerSedesCercanasQuery request, CancellationToken ct)
     {
-        // 1) La base de datos filtra por un rectángulo (rápido, usa el índice de ubicación).
         var area = CalculadoraDistancia.AreaAlrededor(request.Latitud, request.Longitud, request.RadioKm);
         var candidatas = await sedes.ListarEnAreaAsync(area, request.IdCategoria, ct);
 
-        // 2) Aquí se calcula la distancia real y se descartan las esquinas del rectángulo fuera del círculo.
         return candidatas
             .Select(s => new
             {

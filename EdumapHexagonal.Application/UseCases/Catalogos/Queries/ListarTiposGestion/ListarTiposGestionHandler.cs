@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Catalogos.Queries.ListarTiposGestion;
+﻿namespace EdumapHexagonal.Application.UseCases.Catalogos.Queries.ListarTiposGestion;
 
 public sealed class ListarTiposGestionHandler(ICatalogoRepository catalogos)
     : IRequestHandler<ListarTiposGestionQuery, IReadOnlyList<CatalogoItemDto>>

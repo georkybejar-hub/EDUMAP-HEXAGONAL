@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Auth.Commands.Login;
+﻿namespace EdumapHexagonal.Application.UseCases.Auth.Commands.Login;
 
 public sealed class LoginHandler(
     IUsuarioRepository usuarios,
@@ -12,13 +12,11 @@ public sealed class LoginHandler(
         var email = request.Email.Trim().ToLowerInvariant();
         var usuario = await usuarios.ObtenerPorEmailAsync(email, ct);
 
-        // Mismo mensaje si el email no existe o la contraseña es incorrecta:
-        // así no se revela qué correos están registrados.
         if (usuario is null || !passwordHasher.Verificar(request.Password, usuario.PasswordHash))
-            throw new UnauthorizedException("Email o contraseña incorrectos.");
+            throw new UnauthorizedException("Email o contraseÃ±a incorrectos.");
 
         if (usuario.Activo == false)
-            throw new ForbiddenException("Tu cuenta está desactivada. Comunícate con un administrador.");
+            throw new ForbiddenException("Tu cuenta estÃ¡ desactivada. ComunÃ­cate con un administrador.");
 
         var rol = usuario.IdRolNavigation.NombreRol;
         var permisos = await roles.ObtenerCodigosPermisoAsync(usuario.IdRol, ct);

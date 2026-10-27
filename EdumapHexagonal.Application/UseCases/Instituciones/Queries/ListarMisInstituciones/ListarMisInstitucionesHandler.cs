@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Instituciones.Queries.ListarMisInstituciones;
+﻿namespace EdumapHexagonal.Application.UseCases.Instituciones.Queries.ListarMisInstituciones;
 
 public sealed class ListarMisInstitucionesHandler(
     IInstitucionRepository instituciones,

@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Usuarios.Commands.CambiarPassword;
+﻿namespace EdumapHexagonal.Application.UseCases.Usuarios.Commands.CambiarPassword;
 
 public sealed class CambiarPasswordValidator : AbstractValidator<CambiarPasswordCommand>
 {
@@ -8,6 +8,6 @@ public sealed class CambiarPasswordValidator : AbstractValidator<CambiarPassword
 
         RuleFor(x => x.PasswordNueva)
             .PasswordSegura()
-            .NotEqual(x => x.PasswordActual).WithMessage("La nueva contraseña debe ser distinta de la actual.");
+            .NotEqual(x => x.PasswordActual).WithMessage("La nueva contraseÃ±a debe ser distinta de la actual.");
     }
 }

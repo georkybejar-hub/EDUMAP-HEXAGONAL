@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.OfertasEducativas.Queries.ListarOfertasPorSede;
+﻿namespace EdumapHexagonal.Application.UseCases.OfertasEducativas.Queries.ListarOfertasPorSede;
 
 public sealed class ListarOfertasPorSedeHandler(
     ISedeRepository sedes,

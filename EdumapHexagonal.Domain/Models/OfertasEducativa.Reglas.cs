@@ -1,4 +1,4 @@
-using EdumapHexagonal.Domain.Exceptions;
+﻿using EdumapHexagonal.Domain.Exceptions;
 
 namespace EdumapHexagonal.Domain.Models;
 
@@ -37,7 +37,6 @@ public partial class OfertasEducativa
         CuotasAnuales = cuotasAnuales;
     }
 
-    /// <summary>Costo total del año: inscripción + matrícula + pensión × cuotas.</summary>
     public decimal CalcularCostoAnualEstimado() =>
         CostoInscripcion + CostoMatricula + PensionMensual * CuotasAnuales;
 

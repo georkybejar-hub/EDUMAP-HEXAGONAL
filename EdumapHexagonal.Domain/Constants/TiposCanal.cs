@@ -1,8 +1,5 @@
-namespace EdumapHexagonal.Domain.Constants;
+﻿namespace EdumapHexagonal.Domain.Constants;
 
-/// <summary>
-/// Tipos de canal de contacto de una sede (columna canales_contacto_sede.tipo_canal).
-/// </summary>
 public static class TiposCanal
 {
     public const string Telefono = "TELEFONO";

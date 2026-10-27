@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.Ports.Out.Security;
+﻿namespace EdumapHexagonal.Application.Ports.Out.Security;
 
 public interface IPasswordHasher
 {

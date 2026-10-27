@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Sedes.Commands.AgregarCanalContacto;
+﻿namespace EdumapHexagonal.Application.UseCases.Sedes.Commands.AgregarCanalContacto;
 
 public sealed class AgregarCanalContactoValidator : AbstractValidator<AgregarCanalContactoCommand>
 {
@@ -13,13 +13,12 @@ public sealed class AgregarCanalContactoValidator : AbstractValidator<AgregarCan
 
         RuleFor(x => x.ValorContacto).NotEmpty().MaximumLength(150);
 
-        // El formato del valor depende del tipo de canal.
         RuleFor(x => x.ValorContacto)
-            .EmailAddress().WithMessage("El valor debe ser un email válido.")
+            .EmailAddress().WithMessage("El valor debe ser un email vÃ¡lido.")
             .When(x => TiposCanal.EsValido(x.TipoCanal) && TiposCanal.Normalizar(x.TipoCanal) == TiposCanal.Email);
 
         RuleFor(x => x.ValorContacto)
-            .Matches(@"^\+?[0-9 ]{6,20}$").WithMessage("El valor debe ser un número telefónico válido (solo dígitos, espacios y + inicial).")
+            .Matches(@"^\+?[0-9 ]{6,20}$").WithMessage("El valor debe ser un nÃºmero telefÃ³nico vÃ¡lido (solo dÃ­gitos, espacios y + inicial).")
             .When(x => TiposCanal.EsValido(x.TipoCanal) && TiposCanal.EsTelefonico(x.TipoCanal));
 
         RuleFor(x => x.AreaAtencion).MaximumLength(80);

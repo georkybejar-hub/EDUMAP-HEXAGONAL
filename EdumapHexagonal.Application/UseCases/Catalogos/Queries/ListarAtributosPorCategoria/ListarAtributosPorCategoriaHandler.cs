@@ -1,4 +1,4 @@
-namespace EdumapHexagonal.Application.UseCases.Catalogos.Queries.ListarAtributosPorCategoria;
+﻿namespace EdumapHexagonal.Application.UseCases.Catalogos.Queries.ListarAtributosPorCategoria;
 
 public sealed class ListarAtributosPorCategoriaHandler(ICatalogoRepository catalogos)
     : IRequestHandler<ListarAtributosPorCategoriaQuery, IReadOnlyList<CategoriaAtributoDto>>
@@ -8,7 +8,7 @@ public sealed class ListarAtributosPorCategoriaHandler(ICatalogoRepository catal
     {
         if (request.IdCatAtributo is { } idCategoria &&
             !await catalogos.ExisteCategoriaAtributoAsync(idCategoria, ct))
-            throw new NotFoundException("Categoría de atributo", idCategoria);
+            throw new NotFoundException("CategorÃ­a de atributo", idCategoria);
 
         var categorias = await catalogos.ListarCategoriasAtributoAsync(request.IdCatAtributo, ct);
 
