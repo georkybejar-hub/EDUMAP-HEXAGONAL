@@ -2,6 +2,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using EdumapHexagonal.Application;
 
 namespace EdumapHexagonal.Api.Configuration;
 
@@ -9,10 +10,10 @@ public static class ServiceRegistrationExtensions
 {
     public static IServiceCollection AddApiServices(this IServiceCollection services, IConfiguration configuration)
     {
-        // Registrar Use Cases / Servicios de Aplicación aquí:
-        // services.AddScoped<MiCasoDeUso>();
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(
+            typeof(ApplicationAssemblyMarker).Assembly
+        ));
 
-        // Configuración de JWT
         var jwtKey = configuration["Jwt:Key"] ?? "SuperSecretKeyForEdumapHexagonalMustBe32CharsLong!";
         var jwtIssuer = configuration["Jwt:Issuer"] ?? "EdumapApi";
         var jwtAudience = configuration["Jwt:Audience"] ?? "EdumapUsers";
@@ -39,7 +40,6 @@ public static class ServiceRegistrationExtensions
 
         services.AddAuthorization();
 
-        // Configuración de Swagger con soporte JWT Bearer
         services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo
