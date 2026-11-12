@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using EdumapHexagonal.Domain.Models;
+using EdumapHexagonal.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace EdumapHexagonal.Infrastructure.Contexts;
@@ -64,10 +64,6 @@ public partial class ApplicationDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        if (!optionsBuilder.IsConfigured)
-        {
-            optionsBuilder.UseNpgsql("Host=localhost;Database=edumap;Username=postgres;Password=Clave321;Port=5432");
-        }
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -101,7 +97,7 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.IdContacto).HasColumnName("id_contacto");
             entity.Property(e => e.AreaAtencion)
                 .HasMaxLength(80)
-                .HasDefaultValueSql("'Admisión e Informes'::character varying")
+                .HasDefaultValueSql("'AdmisiÃ³n e Informes'::character varying")
                 .HasColumnName("area_atencion");
             entity.Property(e => e.HorarioAtencion)
                 .HasMaxLength(100)

@@ -16,9 +16,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Mapping\" />
-      <Folder Include="Middleware\" />
-      <Folder Include="Services\" />
+      <Folder Include="DTOs\" />
+      <Folder Include="Ports\" />
+      <Folder Include="UseCases\AttributeCategories\Commands\" />
+      <Folder Include="UseCases\AttributeCategories\Queries\" />
+      <Folder Include="UseCases\Auth\Commands\" />
+      <Folder Include="UseCases\Auth\Queries\" />
     </ItemGroup>
 
 </Project>
