@@ -2,7 +2,6 @@ using MediatR;
 using EdumapHexagonal.Application.DTOs.Auth;
 using EdumapHexagonal.Application.Ports.Authentication;
 using EdumapHexagonal.Application.Ports.Persistence;
-using EdumapHexagonal.Application.Ports.Security;
 
 namespace EdumapHexagonal.Application.UseCases.Auth.Commands;
 
@@ -16,9 +15,7 @@ public sealed record RegisterCommand : IRequest<AuthResponseDto?>
 
 internal sealed class RegisterCommandHandler(
     IUnitOfWork unitOfWork,
-    IPasswordHasher passwordHasher,
-    IJwtTokenGenerator jwtTokenGenerator,
-    IAuthSettings authSettings)
+    IAuthService authService)
     : IRequestHandler<RegisterCommand, AuthResponseDto?>
 {
     public async Task<AuthResponseDto?> Handle(RegisterCommand request, CancellationToken cancellationToken)
@@ -31,8 +28,8 @@ internal sealed class RegisterCommandHandler(
 
         var rol = await unitOfWork
             .Repository<EdumapHexagonal.Infrastructure.Role>()
-            .FirstOrDefaultAsync(r => r.NombreRol == authSettings.DefaultRoleName, cancellationToken)
-            ?? throw new InvalidOperationException($"No existe el rol '{authSettings.DefaultRoleName}' configurado en Auth:DefaultRole.");
+            .FirstOrDefaultAsync(r => r.NombreRol == authService.DefaultRoleName, cancellationToken)
+            ?? throw new InvalidOperationException($"No existe el rol '{authService.DefaultRoleName}' configurado en Auth:DefaultRole.");
 
         var usuario = new EdumapHexagonal.Infrastructure.Usuario
         {
@@ -40,7 +37,7 @@ internal sealed class RegisterCommandHandler(
             Nombres = request.Nombres,
             Apellidos = request.Apellidos,
             Email = email,
-            PasswordHash = passwordHasher.Hash(request.Password),
+            PasswordHash = authService.HashPassword(request.Password),
             Activo = true,
             FechaRegistro = DateTime.UtcNow
         };
@@ -48,7 +45,7 @@ internal sealed class RegisterCommandHandler(
         await usuarios.AddAsync(usuario, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
-        var (token, expiresAt) = jwtTokenGenerator.Generate(usuario.IdUsuario, usuario.Email, rol.NombreRol);
+        var (token, expiresAt) = authService.GenerateJwtToken(usuario.IdUsuario, usuario.Email, rol.NombreRol);
 
         return new AuthResponseDto
         {
