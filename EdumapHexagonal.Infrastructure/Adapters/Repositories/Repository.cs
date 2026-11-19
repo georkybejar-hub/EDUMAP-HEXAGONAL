@@ -19,6 +19,12 @@ public class Repository<T>(ApplicationDbContext context) : IRepository<T> where 
     public async Task<IReadOnlyList<T>> GetAllAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken)
         => await DbSet.AsNoTracking().Where(predicate).ToListAsync(cancellationToken);
 
+    public async Task<IReadOnlyList<TResult>> GetAllAsync<TResult>(
+        Expression<Func<T, bool>> predicate,
+        Expression<Func<T, TResult>> selector,
+        CancellationToken cancellationToken)
+        => await DbSet.AsNoTracking().Where(predicate).Select(selector).ToListAsync(cancellationToken);
+
     public async Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default)
         => await DbSet.FirstOrDefaultAsync(predicate, cancellationToken);
 
