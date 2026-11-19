@@ -27,9 +27,12 @@ internal sealed class GetPendingModerationReportsQueryHandler(IUnitOfWork unitOf
                 IdReporte = e.IdReporte,
                 IdResena = e.IdResena,
                 IdUsuarioReporta = e.IdUsuarioReporta,
+                IdAdminRevisor = e.IdAdminRevisor,
                 MotivoReporte = e.MotivoReporte,
                 EstadoRevision = e.EstadoRevision,
-                FechaReporte = e.FechaReporte
+                ResolucionAdmin = e.ResolucionAdmin,
+                FechaReporte = e.FechaReporte,
+                FechaResolucion = e.FechaResolucion
             })
             .ToList();
     }
