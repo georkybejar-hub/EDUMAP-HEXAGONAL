@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -8,6 +9,8 @@ namespace EdumapHexagonal.Api.Configuration;
 
 public static class ServiceRegistrationExtensions
 {
+    internal const string AdministratorPolicy = "Administrator";
+
     public static IServiceCollection AddApiServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(
@@ -38,7 +41,14 @@ public static class ServiceRegistrationExtensions
             };
         });
 
-        services.AddAuthorization();
+        services.AddAuthorization(options =>
+        {
+            options.AddPolicy(AdministratorPolicy, policy => policy
+                .RequireAuthenticatedUser()
+                .RequireAssertion(context => context.User.HasClaim(claim =>
+                    claim.Type == ClaimTypes.Role &&
+                    string.Equals(claim.Value, "ADMINISTRADOR", StringComparison.OrdinalIgnoreCase))));
+        });
 
         services.AddSwaggerGen(c =>
         {
