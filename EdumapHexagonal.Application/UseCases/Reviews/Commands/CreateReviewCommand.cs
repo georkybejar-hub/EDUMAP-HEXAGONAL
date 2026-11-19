@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.Reviews;
 using EdumapHexagonal.Application.Ports.Persistence;
+using EdumapHexagonal.Domain.Models;
 
 namespace EdumapHexagonal.Application.UseCases.Reviews.Commands;
 
@@ -17,7 +18,23 @@ internal sealed class CreateReviewCommandHandler(IUnitOfWork unitOfWork)
 {
     public async Task<ReviewDetailDto> Handle(CreateReviewCommand request, CancellationToken cancellationToken)
     {
-        var entity = new EdumapHexagonal.Domain.Models.Resena
+        if (request.Puntuacion < 1 || request.Puntuacion > 5)
+        {
+            throw new ArgumentException("La puntuación debe estar comprendida entre 1 y 5 estrellas.");
+        }
+
+        var repository = unitOfWork.Repository<Resena>();
+
+        var yaExiste = await repository.AnyAsync(
+            r => r.IdInstitucion == request.IdInstitucion && r.IdUsuario == request.IdUsuario,
+            cancellationToken);
+
+        if (yaExiste)
+        {
+            throw new InvalidOperationException("El usuario ya ha registrado una reseña para esta institución.");
+        }
+
+        var entity = new Resena
         {
             IdInstitucion = request.IdInstitucion,
             IdUsuario = request.IdUsuario,
@@ -27,7 +44,7 @@ internal sealed class CreateReviewCommandHandler(IUnitOfWork unitOfWork)
             FechaPublicacion = DateTime.UtcNow
         };
 
-        await unitOfWork.Repository<EdumapHexagonal.Domain.Models.Resena>().AddAsync(entity, cancellationToken);
+        await repository.AddAsync(entity, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return new ReviewDetailDto
@@ -43,4 +60,3 @@ internal sealed class CreateReviewCommandHandler(IUnitOfWork unitOfWork)
         };
     }
 }
-

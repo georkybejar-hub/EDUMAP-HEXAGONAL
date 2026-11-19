@@ -32,10 +32,14 @@ public class ExceptionHandlingMiddleware(RequestDelegate next, ILogger<Exception
 
         context.Response.StatusCode = (int)statusCode;
 
+        var message = statusCode == HttpStatusCode.InternalServerError
+            ? "Ocurrió un error interno en el servidor. Por favor, intente más tarde."
+            : exception.Message;
+
         var response = new
         {
             statusCode = (int)statusCode,
-            message = exception.Message,
+            message,
             error = statusCode.ToString()
         };
 

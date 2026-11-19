@@ -12,10 +12,25 @@ public sealed class InstitutionSearchViewsController(ISender sender) : Controlle
 {
     [HttpGet]
     [ProducesResponseType<IReadOnlyList<InstitutionSearchViewDto>>(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
+    public async Task<IActionResult> GetAll(
+        [FromQuery] string? q,
+        [FromQuery] short? idCategoria,
+        [FromQuery] short? idDistrito,
+        [FromQuery] short? idTipoGestion,
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 50,
+        CancellationToken cancellationToken = default)
     {
         var result = await sender.Send(
-            new GetAllInstitutionSearchViewsQuery(),
+            new GetAllInstitutionSearchViewsQuery
+            {
+                SearchTerm = q,
+                IdCategoria = idCategoria,
+                IdDistrito = idDistrito,
+                IdTipoGestion = idTipoGestion,
+                Page = page,
+                PageSize = pageSize
+            },
             cancellationToken);
 
         return Ok(result);

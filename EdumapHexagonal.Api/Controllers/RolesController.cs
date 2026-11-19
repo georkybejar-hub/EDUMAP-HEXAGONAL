@@ -1,5 +1,7 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using EdumapHexagonal.Api.Configuration;
 using EdumapHexagonal.Application.DTOs.Roles;
 using EdumapHexagonal.Application.UseCases.Roles.Commands;
 using EdumapHexagonal.Application.UseCases.Roles.Queries;
@@ -9,10 +11,13 @@ namespace EdumapHexagonal.Api.Controllers;
 [ApiController]
 [Route("api/roles")]
 [Produces("application/json")]
+[Authorize(Policy = ServiceRegistrationExtensions.AdministratorPolicy)]
 public sealed class RolesController(ISender sender) : ControllerBase
 {
     [HttpGet]
     [ProducesResponseType<IReadOnlyList<RoleDto>>(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
     {
         var result = await sender.Send(new GetAllRolesQuery(), cancellationToken);
@@ -21,6 +26,8 @@ public sealed class RolesController(ISender sender) : ControllerBase
 
     [HttpGet("{id:int}")]
     [ProducesResponseType<RoleDto>(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById(short id, CancellationToken cancellationToken)
     {
@@ -31,6 +38,8 @@ public sealed class RolesController(ISender sender) : ControllerBase
     [HttpPost]
     [ProducesResponseType<RoleDto>(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public async Task<IActionResult> Create([FromBody] CreateRoleCommand command, CancellationToken cancellationToken)
     {
         var result = await sender.Send(command, cancellationToken);
@@ -40,6 +49,8 @@ public sealed class RolesController(ISender sender) : ControllerBase
     [HttpPut("{id:int}")]
     [ProducesResponseType<RoleDto>(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Update(short id, [FromBody] UpdateRoleCommand command, CancellationToken cancellationToken)
     {
@@ -52,6 +63,8 @@ public sealed class RolesController(ISender sender) : ControllerBase
 
     [HttpDelete("{id:int}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete(short id, CancellationToken cancellationToken)
     {

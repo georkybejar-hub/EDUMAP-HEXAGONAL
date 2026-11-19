@@ -1,5 +1,7 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using EdumapHexagonal.Api.Configuration;
 using EdumapHexagonal.Application.DTOs.RolePermissions;
 using EdumapHexagonal.Application.UseCases.RolePermissions.Commands;
 using EdumapHexagonal.Application.UseCases.RolePermissions.Queries;
@@ -9,10 +11,13 @@ namespace EdumapHexagonal.Api.Controllers;
 [ApiController]
 [Route("api/role-permissions")]
 [Produces("application/json")]
+[Authorize(Policy = ServiceRegistrationExtensions.AdministratorPolicy)]
 public sealed class RolePermissionsController(ISender sender) : ControllerBase
 {
     [HttpGet]
     [ProducesResponseType<IReadOnlyList<RolePermissionDto>>(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
     {
         var result = await sender.Send(new GetAllRolePermissionsQuery(), cancellationToken);
@@ -21,6 +26,8 @@ public sealed class RolePermissionsController(ISender sender) : ControllerBase
 
     [HttpGet("role/{idRol:int}")]
     [ProducesResponseType<IReadOnlyList<RolePermissionDto>>(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public async Task<IActionResult> GetByRole(short idRol, CancellationToken cancellationToken)
     {
         var result = await sender.Send(new GetRolePermissionsByRoleQuery(idRol), cancellationToken);
@@ -29,16 +36,20 @@ public sealed class RolePermissionsController(ISender sender) : ControllerBase
 
     [HttpGet("{idRol:int}/{idPermiso:int}")]
     [ProducesResponseType<RolePermissionDto>(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById(short idRol, short idPermiso, CancellationToken cancellationToken)
     {
-        var result = await sender.Send(new GetRolePermissionByIdQuery(idRol, idPermiso), cancellationToken);
+        var result = await sender.Send(new GetRolePermissionByIdQuery { IdRol = idRol, IdPermiso = idPermiso }, cancellationToken);
         return result is null ? NotFound() : Ok(result);
     }
 
     [HttpPost]
     [ProducesResponseType<RolePermissionDto>(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public async Task<IActionResult> Create([FromBody] CreateRolePermissionCommand command, CancellationToken cancellationToken)
     {
         var result = await sender.Send(command, cancellationToken);
@@ -47,6 +58,8 @@ public sealed class RolePermissionsController(ISender sender) : ControllerBase
 
     [HttpDelete("{idRol:int}/{idPermiso:int}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete(short idRol, short idPermiso, CancellationToken cancellationToken)
     {

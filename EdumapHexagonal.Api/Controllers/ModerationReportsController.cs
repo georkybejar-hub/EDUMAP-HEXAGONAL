@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,10 +12,10 @@ namespace EdumapHexagonal.Api.Controllers;
 [ApiController]
 [Route("api/moderation-reports")]
 [Produces("application/json")]
-[Authorize(Policy = ServiceRegistrationExtensions.AdministratorPolicy)]
 public sealed class ModerationReportsController(ISender sender) : ControllerBase
 {
     [HttpGet]
+    [Authorize(Policy = ServiceRegistrationExtensions.AdministratorPolicy)]
     [ProducesResponseType<IReadOnlyList<ModerationReportDto>>(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -25,6 +26,7 @@ public sealed class ModerationReportsController(ISender sender) : ControllerBase
     }
 
     [HttpGet("pending")]
+    [Authorize(Policy = ServiceRegistrationExtensions.AdministratorPolicy)]
     [ProducesResponseType<IReadOnlyList<ModerationReportDto>>(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -35,6 +37,7 @@ public sealed class ModerationReportsController(ISender sender) : ControllerBase
     }
 
     [HttpGet("{id:int}")]
+    [Authorize(Policy = ServiceRegistrationExtensions.AdministratorPolicy)]
     [ProducesResponseType<ModerationReportDto>(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -46,17 +49,24 @@ public sealed class ModerationReportsController(ISender sender) : ControllerBase
     }
 
     [HttpPost]
+    [Authorize]
     [ProducesResponseType<ModerationReportDto>(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public async Task<IActionResult> Create([FromBody] CreateModerationReportCommand command, CancellationToken cancellationToken)
     {
+        var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (int.TryParse(userIdClaim, out var userId))
+        {
+            command = command with { IdUsuarioReporta = userId };
+        }
+
         var result = await sender.Send(command, cancellationToken);
         return CreatedAtAction(nameof(GetById), new { id = result.IdReporte }, result);
     }
 
     [HttpPut("{id:int}")]
+    [Authorize(Policy = ServiceRegistrationExtensions.AdministratorPolicy)]
     [ProducesResponseType<ModerationReportDto>(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -72,6 +82,7 @@ public sealed class ModerationReportsController(ISender sender) : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
+    [Authorize(Policy = ServiceRegistrationExtensions.AdministratorPolicy)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
