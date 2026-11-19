@@ -7,6 +7,7 @@ public interface IRepository<T> where T : class
     Task<T?> GetByIdAsync(object id, CancellationToken cancellationToken = default);
 
     Task<IReadOnlyList<T>> GetAllAsync(CancellationToken cancellationToken = default);
+    Task<IReadOnlyList<T>> GetAllAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken);
 
     Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default);
 
