@@ -2,7 +2,6 @@ using MediatR;
 using EdumapHexagonal.Application.DTOs.Auth;
 using EdumapHexagonal.Application.Ports.Authentication;
 using EdumapHexagonal.Application.Ports.Persistence;
-using EdumapHexagonal.Application.Ports.Security;
 
 namespace EdumapHexagonal.Application.UseCases.Auth.Commands;
 
@@ -14,8 +13,7 @@ public sealed record LoginCommand : IRequest<AuthResponseDto?>
 
 internal sealed class LoginCommandHandler(
     IUnitOfWork unitOfWork,
-    IPasswordHasher passwordHasher,
-    IJwtTokenGenerator jwtTokenGenerator)
+    IAuthService authService)
     : IRequestHandler<LoginCommand, AuthResponseDto?>
 {
     public async Task<AuthResponseDto?> Handle(LoginCommand request, CancellationToken cancellationToken)
@@ -29,7 +27,7 @@ internal sealed class LoginCommandHandler(
         if (usuario is null || usuario.Activo == false)
             return null;
 
-        if (!passwordHasher.Verify(request.Password, usuario.PasswordHash))
+        if (!authService.VerifyPassword(request.Password, usuario.PasswordHash))
             return null;
 
         var rol = await unitOfWork
@@ -37,7 +35,7 @@ internal sealed class LoginCommandHandler(
             .GetByIdAsync(usuario.IdRol, cancellationToken);
 
         var nombreRol = rol?.NombreRol ?? string.Empty;
-        var (token, expiresAt) = jwtTokenGenerator.Generate(usuario.IdUsuario, usuario.Email, nombreRol);
+        var (token, expiresAt) = authService.GenerateJwtToken(usuario.IdUsuario, usuario.Email, nombreRol);
 
         return new AuthResponseDto
         {

@@ -7,9 +7,25 @@ using EdumapHexagonal.Application.Ports.Authentication;
 
 namespace EdumapHexagonal.Infrastructure.Authentication;
 
-public sealed class JwtTokenGenerator(IConfiguration configuration) : IJwtTokenGenerator
+public sealed class AuthService(IConfiguration configuration) : IAuthService
 {
-    public (string Token, DateTime ExpiresAt) Generate(int idUsuario, string email, string nombreRol)
+    public string DefaultRoleName => configuration["Auth:DefaultRole"] ?? "Usuario";
+
+    public string HashPassword(string password) => BCrypt.Net.BCrypt.HashPassword(password);
+
+    public bool VerifyPassword(string password, string passwordHash)
+    {
+        try
+        {
+            return BCrypt.Net.BCrypt.Verify(password, passwordHash);
+        }
+        catch (BCrypt.Net.SaltParseException)
+        {
+            return false;
+        }
+    }
+
+    public (string Token, DateTime ExpiresAt) GenerateJwtToken(int idUsuario, string email, string nombreRol)
     {
         var key = configuration["Jwt:Key"] ?? "SuperSecretKeyForEdumapHexagonalMustBe32CharsLong!";
         var issuer = configuration["Jwt:Issuer"] ?? "EdumapApi";
