@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EdumapHexagonal.Infrastructure;
+namespace EdumapHexagonal.Domain.Models;
 
 public partial class AtributosCatalogo
 {
@@ -15,3 +15,4 @@ public partial class AtributosCatalogo
 
     public virtual ICollection<InstitucionAtributo> InstitucionAtributos { get; set; } = new List<InstitucionAtributo>();
 }
+

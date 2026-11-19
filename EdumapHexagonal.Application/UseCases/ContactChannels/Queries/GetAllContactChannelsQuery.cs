@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.ContactChannels;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -12,7 +12,7 @@ internal sealed class GetAllContactChannelsQueryHandler(IUnitOfWork unitOfWork)
     public async Task<IReadOnlyList<ContactChannelDto>> Handle(GetAllContactChannelsQuery request, CancellationToken cancellationToken)
     {
         var entities = await unitOfWork
-            .Repository<EdumapHexagonal.Infrastructure.CanalesContactoSede>()
+            .Repository<EdumapHexagonal.Domain.Models.CanalesContactoSede>()
             .GetAllAsync(cancellationToken);
 
         return entities
@@ -28,3 +28,4 @@ internal sealed class GetAllContactChannelsQueryHandler(IUnitOfWork unitOfWork)
             .ToList();
     }
 }
+

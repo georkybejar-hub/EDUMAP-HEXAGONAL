@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.Permissions;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -14,7 +14,7 @@ internal sealed class GetAllPermissionsQueryHandler(IUnitOfWork unitOfWork)
         CancellationToken cancellationToken)
     {
         var entities = await unitOfWork
-            .Repository<EdumapHexagonal.Infrastructure.Permiso>()
+            .Repository<EdumapHexagonal.Domain.Models.Permiso>()
             .GetAllAsync(cancellationToken);
 
         return entities
@@ -29,3 +29,4 @@ internal sealed class GetAllPermissionsQueryHandler(IUnitOfWork unitOfWork)
             .ToList();
     }
 }
+

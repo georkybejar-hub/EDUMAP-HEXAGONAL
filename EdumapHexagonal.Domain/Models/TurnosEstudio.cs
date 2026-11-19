@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EdumapHexagonal.Infrastructure;
+namespace EdumapHexagonal.Domain.Models;
 
 public partial class TurnosEstudio
 {
@@ -11,3 +11,4 @@ public partial class TurnosEstudio
 
     public virtual ICollection<OfertasEducativa> OfertasEducativas { get; set; } = new List<OfertasEducativa>();
 }
+

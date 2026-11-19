@@ -21,7 +21,7 @@ internal sealed class UpdateInstitutionMediaCommandHandler(IUnitOfWork unitOfWor
         UpdateInstitutionMediaCommand request,
         CancellationToken cancellationToken)
     {
-        var repository = unitOfWork.Repository<EdumapHexagonal.Infrastructure.MultimediaInstitucion>();
+        var repository = unitOfWork.Repository<EdumapHexagonal.Domain.Models.MultimediaInstitucion>();
 
         var entity = await repository.GetByIdAsync(request.IdMultimedia, cancellationToken);
         if (entity is null) return null;

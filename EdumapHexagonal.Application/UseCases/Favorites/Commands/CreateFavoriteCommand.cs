@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.Favorites;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -15,7 +15,7 @@ internal sealed class CreateFavoriteCommandHandler(IUnitOfWork unitOfWork)
 {
     public async Task<FavoriteDto> Handle(CreateFavoriteCommand request, CancellationToken cancellationToken)
     {
-        var repository = unitOfWork.Repository<EdumapHexagonal.Infrastructure.FavoritosComparador>();
+        var repository = unitOfWork.Repository<EdumapHexagonal.Domain.Models.FavoritosComparador>();
 
         var existing = await repository.FirstOrDefaultAsync(
             f => f.IdUsuario == request.IdUsuario && f.IdInstitucion == request.IdInstitucion,
@@ -31,7 +31,7 @@ internal sealed class CreateFavoriteCommandHandler(IUnitOfWork unitOfWork)
             };
         }
 
-        var entity = new EdumapHexagonal.Infrastructure.FavoritosComparador
+        var entity = new EdumapHexagonal.Domain.Models.FavoritosComparador
         {
             IdUsuario = request.IdUsuario,
             IdInstitucion = request.IdInstitucion,
@@ -49,3 +49,4 @@ internal sealed class CreateFavoriteCommandHandler(IUnitOfWork unitOfWork)
         };
     }
 }
+

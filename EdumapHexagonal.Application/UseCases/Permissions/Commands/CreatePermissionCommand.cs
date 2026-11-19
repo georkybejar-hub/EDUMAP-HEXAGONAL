@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.Permissions;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -15,13 +15,13 @@ internal sealed class CreatePermissionCommandHandler(IUnitOfWork unitOfWork)
 {
     public async Task<PermissionDto> Handle(CreatePermissionCommand request, CancellationToken cancellationToken)
     {
-        var entity = new EdumapHexagonal.Infrastructure.Permiso
+        var entity = new EdumapHexagonal.Domain.Models.Permiso
         {
             CodigoPermiso = request.CodigoPermiso,
             ModuloSistema = request.ModuloSistema
         };
 
-        await unitOfWork.Repository<EdumapHexagonal.Infrastructure.Permiso>().AddAsync(entity, cancellationToken);
+        await unitOfWork.Repository<EdumapHexagonal.Domain.Models.Permiso>().AddAsync(entity, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return new PermissionDto
@@ -32,3 +32,4 @@ internal sealed class CreatePermissionCommandHandler(IUnitOfWork unitOfWork)
         };
     }
 }
+

@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.Users;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -12,7 +12,7 @@ internal sealed class GetAllUsersQueryHandler(IUnitOfWork unitOfWork)
     public async Task<IReadOnlyList<UserDto>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
     {
         var entities = await unitOfWork
-            .Repository<EdumapHexagonal.Infrastructure.Usuario>()
+            .Repository<EdumapHexagonal.Domain.Models.Usuario>()
             .GetAllAsync(cancellationToken);
 
         return entities
@@ -29,3 +29,4 @@ internal sealed class GetAllUsersQueryHandler(IUnitOfWork unitOfWork)
             .ToList();
     }
 }
+

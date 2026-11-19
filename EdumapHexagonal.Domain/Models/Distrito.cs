@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EdumapHexagonal.Infrastructure;
+namespace EdumapHexagonal.Domain.Models;
 
 public partial class Distrito
 {
@@ -17,3 +17,4 @@ public partial class Distrito
 
     public virtual ICollection<SedesInstitucion> SedesInstitucions { get; set; } = new List<SedesInstitucion>();
 }
+

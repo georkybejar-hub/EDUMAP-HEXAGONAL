@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.StudyModes;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -12,7 +12,7 @@ internal sealed class GetAllStudyModesQueryHandler(IUnitOfWork unitOfWork)
     public async Task<IReadOnlyList<StudyModeDto>> Handle(GetAllStudyModesQuery request, CancellationToken cancellationToken)
     {
         var entities = await unitOfWork
-            .Repository<EdumapHexagonal.Infrastructure.ModalidadesEstudio>()
+            .Repository<EdumapHexagonal.Domain.Models.ModalidadesEstudio>()
             .GetAllAsync(cancellationToken);
 
         return entities
@@ -24,3 +24,4 @@ internal sealed class GetAllStudyModesQueryHandler(IUnitOfWork unitOfWork)
             .ToList();
     }
 }
+

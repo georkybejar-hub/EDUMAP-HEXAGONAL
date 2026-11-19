@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.Ports.Persistence;
 
 namespace EdumapHexagonal.Application.UseCases.ModerationReports.Commands;
@@ -13,7 +13,7 @@ internal sealed class DeleteModerationReportCommandHandler(IUnitOfWork unitOfWor
 {
     public async Task<bool> Handle(DeleteModerationReportCommand request, CancellationToken cancellationToken)
     {
-        var repository = unitOfWork.Repository<EdumapHexagonal.Infrastructure.ReportesModeracion>();
+        var repository = unitOfWork.Repository<EdumapHexagonal.Domain.Models.ReportesModeracion>();
 
         var entity = await repository.GetByIdAsync(request.IdReporte, cancellationToken);
         if (entity is null) return false;
@@ -23,3 +23,4 @@ internal sealed class DeleteModerationReportCommandHandler(IUnitOfWork unitOfWor
         return true;
     }
 }
+

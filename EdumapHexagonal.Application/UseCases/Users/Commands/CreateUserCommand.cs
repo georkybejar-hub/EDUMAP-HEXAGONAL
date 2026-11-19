@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.Users;
 using EdumapHexagonal.Application.Ports.Authentication;
 using EdumapHexagonal.Application.Ports.Persistence;
@@ -23,7 +23,7 @@ internal sealed class CreateUserCommandHandler(
     public async Task<UserDto> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
         var email = request.Email.Trim().ToLowerInvariant();
-        var repository = unitOfWork.Repository<EdumapHexagonal.Infrastructure.Usuario>();
+        var repository = unitOfWork.Repository<EdumapHexagonal.Domain.Models.Usuario>();
 
         var exists = await repository.AnyAsync(u => u.Email == email, cancellationToken);
         if (exists)
@@ -31,7 +31,7 @@ internal sealed class CreateUserCommandHandler(
             throw new InvalidOperationException($"El correo '{email}' ya se encuentra registrado.");
         }
 
-        var entity = new EdumapHexagonal.Infrastructure.Usuario
+        var entity = new EdumapHexagonal.Domain.Models.Usuario
         {
             IdRol = request.IdRol,
             Nombres = request.Nombres,
@@ -57,3 +57,4 @@ internal sealed class CreateUserCommandHandler(
         };
     }
 }
+

@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.Auth;
 using EdumapHexagonal.Application.Ports.Authentication;
 using EdumapHexagonal.Application.Ports.Persistence;
@@ -21,7 +21,7 @@ internal sealed class LoginCommandHandler(
         var email = request.Email.Trim().ToLowerInvariant();
 
         var usuario = await unitOfWork
-            .Repository<EdumapHexagonal.Infrastructure.Usuario>()
+            .Repository<EdumapHexagonal.Domain.Models.Usuario>()
             .FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
 
         if (usuario is null || usuario.Activo == false)
@@ -31,7 +31,7 @@ internal sealed class LoginCommandHandler(
             return null;
 
         var rol = await unitOfWork
-            .Repository<EdumapHexagonal.Infrastructure.Role>()
+            .Repository<EdumapHexagonal.Domain.Models.Role>()
             .GetByIdAsync(usuario.IdRol, cancellationToken);
 
         var nombreRol = rol?.NombreRol ?? string.Empty;
@@ -55,3 +55,4 @@ internal sealed class LoginCommandHandler(
         };
     }
 }
+

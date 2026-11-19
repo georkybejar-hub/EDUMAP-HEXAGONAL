@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EdumapHexagonal.Infrastructure;
+namespace EdumapHexagonal.Domain.Models;
 
 public partial class Resena
 {
@@ -27,3 +27,4 @@ public partial class Resena
 
     public virtual ICollection<ReportesModeracion> ReportesModeracions { get; set; } = new List<ReportesModeracion>();
 }
+

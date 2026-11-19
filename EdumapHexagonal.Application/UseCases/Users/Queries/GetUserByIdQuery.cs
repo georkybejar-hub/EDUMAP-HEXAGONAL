@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.Users;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -18,7 +18,7 @@ internal sealed class GetUserByIdQueryHandler(IUnitOfWork unitOfWork)
     public async Task<UserDto?> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
     {
         var entity = await unitOfWork
-            .Repository<EdumapHexagonal.Infrastructure.Usuario>()
+            .Repository<EdumapHexagonal.Domain.Models.Usuario>()
             .GetByIdAsync(request.IdUsuario, cancellationToken);
 
         if (entity is null) return null;
@@ -35,3 +35,4 @@ internal sealed class GetUserByIdQueryHandler(IUnitOfWork unitOfWork)
         };
     }
 }
+

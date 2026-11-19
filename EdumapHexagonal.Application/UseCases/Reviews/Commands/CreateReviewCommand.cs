@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.Reviews;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -17,7 +17,7 @@ internal sealed class CreateReviewCommandHandler(IUnitOfWork unitOfWork)
 {
     public async Task<ReviewDetailDto> Handle(CreateReviewCommand request, CancellationToken cancellationToken)
     {
-        var entity = new EdumapHexagonal.Infrastructure.Resena
+        var entity = new EdumapHexagonal.Domain.Models.Resena
         {
             IdInstitucion = request.IdInstitucion,
             IdUsuario = request.IdUsuario,
@@ -27,7 +27,7 @@ internal sealed class CreateReviewCommandHandler(IUnitOfWork unitOfWork)
             FechaPublicacion = DateTime.UtcNow
         };
 
-        await unitOfWork.Repository<EdumapHexagonal.Infrastructure.Resena>().AddAsync(entity, cancellationToken);
+        await unitOfWork.Repository<EdumapHexagonal.Domain.Models.Resena>().AddAsync(entity, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return new ReviewDetailDto
@@ -43,3 +43,4 @@ internal sealed class CreateReviewCommandHandler(IUnitOfWork unitOfWork)
         };
     }
 }
+

@@ -14,7 +14,7 @@ internal sealed class GetAllInstitutionsQueryHandler(IUnitOfWork unitOfWork)
         CancellationToken cancellationToken)
     {
         var entities = await unitOfWork
-            .Repository<EdumapHexagonal.Infrastructure.Institucione>()
+            .Repository<EdumapHexagonal.Domain.Models.Institucione>()
             .GetAllAsync(cancellationToken);
 
         return entities

@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.Ports.Persistence;
 
 namespace EdumapHexagonal.Application.UseCases.Permissions.Commands;
@@ -13,7 +13,7 @@ internal sealed class DeletePermissionCommandHandler(IUnitOfWork unitOfWork)
 {
     public async Task<bool> Handle(DeletePermissionCommand request, CancellationToken cancellationToken)
     {
-        var repository = unitOfWork.Repository<EdumapHexagonal.Infrastructure.Permiso>();
+        var repository = unitOfWork.Repository<EdumapHexagonal.Domain.Models.Permiso>();
 
         var entity = await repository.GetByIdAsync(request.IdPermiso, cancellationToken);
         if (entity is null) return false;
@@ -23,3 +23,4 @@ internal sealed class DeletePermissionCommandHandler(IUnitOfWork unitOfWork)
         return true;
     }
 }
+

@@ -1,4 +1,5 @@
 using EdumapHexagonal.Api.Configuration;
+using EdumapHexagonal.Api.Middleware;
 using EdumapHexagonal.Infrastructure.Configuration;
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
@@ -25,8 +26,12 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseMiddleware<RoleBasedAccessMiddleware>();
 
 app.MapControllers();
 

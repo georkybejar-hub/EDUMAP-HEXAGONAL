@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.StudyShifts;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -15,7 +15,7 @@ internal sealed class UpdateStudyShiftCommandHandler(IUnitOfWork unitOfWork)
 {
     public async Task<StudyShiftDto?> Handle(UpdateStudyShiftCommand request, CancellationToken cancellationToken)
     {
-        var repository = unitOfWork.Repository<EdumapHexagonal.Infrastructure.TurnosEstudio>();
+        var repository = unitOfWork.Repository<EdumapHexagonal.Domain.Models.TurnosEstudio>();
 
         var entity = await repository.GetByIdAsync(request.IdTurno, cancellationToken);
         if (entity is null) return null;
@@ -32,3 +32,4 @@ internal sealed class UpdateStudyShiftCommandHandler(IUnitOfWork unitOfWork)
         };
     }
 }
+

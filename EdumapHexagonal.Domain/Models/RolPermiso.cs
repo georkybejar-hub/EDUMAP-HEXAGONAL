@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EdumapHexagonal.Infrastructure;
+namespace EdumapHexagonal.Domain.Models;
 
 public partial class RolPermiso
 {
@@ -15,3 +15,4 @@ public partial class RolPermiso
 
     public virtual Role IdRolNavigation { get; set; } = null!;
 }
+

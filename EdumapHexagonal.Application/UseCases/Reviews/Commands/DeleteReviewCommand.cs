@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.Ports.Persistence;
 
 namespace EdumapHexagonal.Application.UseCases.Reviews.Commands;
@@ -13,7 +13,7 @@ internal sealed class DeleteReviewCommandHandler(IUnitOfWork unitOfWork)
 {
     public async Task<bool> Handle(DeleteReviewCommand request, CancellationToken cancellationToken)
     {
-        var repository = unitOfWork.Repository<EdumapHexagonal.Infrastructure.Resena>();
+        var repository = unitOfWork.Repository<EdumapHexagonal.Domain.Models.Resena>();
 
         var entity = await repository.GetByIdAsync(request.IdResena, cancellationToken);
         if (entity is null) return false;
@@ -23,3 +23,4 @@ internal sealed class DeleteReviewCommandHandler(IUnitOfWork unitOfWork)
         return true;
     }
 }
+

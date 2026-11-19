@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.Ports.Persistence;
 
 namespace EdumapHexagonal.Application.UseCases.RegulatoryEntities.Commands;
@@ -13,7 +13,7 @@ internal sealed class DeleteRegulatoryEntityCommandHandler(IUnitOfWork unitOfWor
 {
     public async Task<bool> Handle(DeleteRegulatoryEntityCommand request, CancellationToken cancellationToken)
     {
-        var repository = unitOfWork.Repository<EdumapHexagonal.Infrastructure.EntidadesReguladora>();
+        var repository = unitOfWork.Repository<EdumapHexagonal.Domain.Models.EntidadesReguladora>();
 
         var entity = await repository.GetByIdAsync(request.IdReguladora, cancellationToken);
         if (entity is null) return false;
@@ -23,3 +23,4 @@ internal sealed class DeleteRegulatoryEntityCommandHandler(IUnitOfWork unitOfWor
         return true;
     }
 }
+

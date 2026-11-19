@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.Auth;
 using EdumapHexagonal.Application.Ports.Authentication;
 using EdumapHexagonal.Application.Ports.Persistence;
@@ -21,17 +21,17 @@ internal sealed class RegisterCommandHandler(
     public async Task<AuthResponseDto?> Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
         var email = request.Email.Trim().ToLowerInvariant();
-        var usuarios = unitOfWork.Repository<EdumapHexagonal.Infrastructure.Usuario>();
+        var usuarios = unitOfWork.Repository<EdumapHexagonal.Domain.Models.Usuario>();
 
         if (await usuarios.AnyAsync(u => u.Email == email, cancellationToken))
             return null;
 
         var rol = await unitOfWork
-            .Repository<EdumapHexagonal.Infrastructure.Role>()
+            .Repository<EdumapHexagonal.Domain.Models.Role>()
             .FirstOrDefaultAsync(r => r.NombreRol == authService.DefaultRoleName, cancellationToken)
             ?? throw new InvalidOperationException($"No existe el rol '{authService.DefaultRoleName}' configurado en Auth:DefaultRole.");
 
-        var usuario = new EdumapHexagonal.Infrastructure.Usuario
+        var usuario = new EdumapHexagonal.Domain.Models.Usuario
         {
             IdRol = rol.IdRol,
             Nombres = request.Nombres,
@@ -65,3 +65,4 @@ internal sealed class RegisterCommandHandler(
         };
     }
 }
+

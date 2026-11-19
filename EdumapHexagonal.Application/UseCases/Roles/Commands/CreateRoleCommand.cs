@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.Roles;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -15,13 +15,13 @@ internal sealed class CreateRoleCommandHandler(IUnitOfWork unitOfWork)
 {
     public async Task<RoleDto> Handle(CreateRoleCommand request, CancellationToken cancellationToken)
     {
-        var entity = new EdumapHexagonal.Infrastructure.Role
+        var entity = new EdumapHexagonal.Domain.Models.Role
         {
             NombreRol = request.NombreRol,
             DescripcionRol = request.DescripcionRol
         };
 
-        await unitOfWork.Repository<EdumapHexagonal.Infrastructure.Role>().AddAsync(entity, cancellationToken);
+        await unitOfWork.Repository<EdumapHexagonal.Domain.Models.Role>().AddAsync(entity, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return new RoleDto
@@ -32,3 +32,4 @@ internal sealed class CreateRoleCommandHandler(IUnitOfWork unitOfWork)
         };
     }
 }
+

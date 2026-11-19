@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.CatalogAttributes;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -16,7 +16,7 @@ internal sealed class UpdateCatalogAttributeCommandHandler(IUnitOfWork unitOfWor
 {
     public async Task<CatalogAttributeDto?> Handle(UpdateCatalogAttributeCommand request, CancellationToken cancellationToken)
     {
-        var repository = unitOfWork.Repository<EdumapHexagonal.Infrastructure.AtributosCatalogo>();
+        var repository = unitOfWork.Repository<EdumapHexagonal.Domain.Models.AtributosCatalogo>();
 
         var entity = await repository.GetByIdAsync(request.IdAtributo, cancellationToken);
         if (entity is null) return null;
@@ -35,3 +35,4 @@ internal sealed class UpdateCatalogAttributeCommandHandler(IUnitOfWork unitOfWor
         };
     }
 }
+

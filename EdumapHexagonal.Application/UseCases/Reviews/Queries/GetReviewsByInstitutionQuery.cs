@@ -1,7 +1,7 @@
 using MediatR;
 using EdumapHexagonal.Application.DTOs.Reviews;
 using EdumapHexagonal.Application.Ports.Persistence;
-using EdumapHexagonal.Infrastructure;
+using EdumapHexagonal.Domain.Models;
 
 namespace EdumapHexagonal.Application.UseCases.Reviews.Queries;
 

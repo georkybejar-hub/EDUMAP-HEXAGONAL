@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.Ports.Persistence;
 
 namespace EdumapHexagonal.Application.UseCases.Favorites.Commands;
@@ -14,7 +14,7 @@ internal sealed class DeleteFavoriteCommandHandler(IUnitOfWork unitOfWork)
 {
     public async Task<bool> Handle(DeleteFavoriteCommand request, CancellationToken cancellationToken)
     {
-        var repository = unitOfWork.Repository<EdumapHexagonal.Infrastructure.FavoritosComparador>();
+        var repository = unitOfWork.Repository<EdumapHexagonal.Domain.Models.FavoritosComparador>();
 
         var entity = await repository.FirstOrDefaultAsync(
             f => f.IdUsuario == request.IdUsuario && f.IdInstitucion == request.IdInstitucion,
@@ -27,3 +27,4 @@ internal sealed class DeleteFavoriteCommandHandler(IUnitOfWork unitOfWork)
         return true;
     }
 }
+

@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.Ports.Persistence;
 
 namespace EdumapHexagonal.Application.UseCases.Districts.Commands;
@@ -13,7 +13,7 @@ internal sealed class DeleteDistrictCommandHandler(IUnitOfWork unitOfWork)
 {
     public async Task<bool> Handle(DeleteDistrictCommand request, CancellationToken cancellationToken)
     {
-        var repository = unitOfWork.Repository<EdumapHexagonal.Infrastructure.Distrito>();
+        var repository = unitOfWork.Repository<EdumapHexagonal.Domain.Models.Distrito>();
 
         var entity = await repository.GetByIdAsync(request.IdDistrito, cancellationToken);
         if (entity is null) return false;
@@ -23,3 +23,4 @@ internal sealed class DeleteDistrictCommandHandler(IUnitOfWork unitOfWork)
         return true;
     }
 }
+

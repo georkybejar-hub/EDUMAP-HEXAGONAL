@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.Reviews;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -17,7 +17,7 @@ internal sealed class UpdateReviewCommandHandler(IUnitOfWork unitOfWork)
 {
     public async Task<ReviewDetailDto?> Handle(UpdateReviewCommand request, CancellationToken cancellationToken)
     {
-        var repository = unitOfWork.Repository<EdumapHexagonal.Infrastructure.Resena>();
+        var repository = unitOfWork.Repository<EdumapHexagonal.Domain.Models.Resena>();
 
         var entity = await repository.GetByIdAsync(request.IdResena, cancellationToken);
         if (entity is null) return null;
@@ -43,3 +43,4 @@ internal sealed class UpdateReviewCommandHandler(IUnitOfWork unitOfWork)
         };
     }
 }
+

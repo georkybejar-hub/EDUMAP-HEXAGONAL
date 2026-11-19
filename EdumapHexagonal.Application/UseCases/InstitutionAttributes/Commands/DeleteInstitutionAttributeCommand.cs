@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.Ports.Persistence;
 
 namespace EdumapHexagonal.Application.UseCases.InstitutionAttributes.Commands;
@@ -14,7 +14,7 @@ internal sealed class DeleteInstitutionAttributeCommandHandler(IUnitOfWork unitO
 {
     public async Task<bool> Handle(DeleteInstitutionAttributeCommand request, CancellationToken cancellationToken)
     {
-        var repository = unitOfWork.Repository<EdumapHexagonal.Infrastructure.InstitucionAtributo>();
+        var repository = unitOfWork.Repository<EdumapHexagonal.Domain.Models.InstitucionAtributo>();
 
         var entity = await repository.FirstOrDefaultAsync(
             x => x.IdInstitucion == request.IdInstitucion && x.IdAtributo == request.IdAtributo,
@@ -27,3 +27,4 @@ internal sealed class DeleteInstitutionAttributeCommandHandler(IUnitOfWork unitO
         return true;
     }
 }
+

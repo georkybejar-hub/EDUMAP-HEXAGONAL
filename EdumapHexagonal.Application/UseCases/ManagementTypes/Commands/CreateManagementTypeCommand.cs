@@ -16,12 +16,12 @@ internal sealed class CreateManagementTypeCommandHandler(IUnitOfWork unitOfWork)
         CreateManagementTypeCommand request,
         CancellationToken cancellationToken)
     {
-        var entity = new EdumapHexagonal.Infrastructure.TiposGestion
+        var entity = new EdumapHexagonal.Domain.Models.TiposGestion
         {
             NombreGestion = request.NombreGestion
         };
 
-        await unitOfWork.Repository<EdumapHexagonal.Infrastructure.TiposGestion>()
+        await unitOfWork.Repository<EdumapHexagonal.Domain.Models.TiposGestion>()
             .AddAsync(entity, cancellationToken);
 
         await unitOfWork.SaveChangesAsync(cancellationToken);

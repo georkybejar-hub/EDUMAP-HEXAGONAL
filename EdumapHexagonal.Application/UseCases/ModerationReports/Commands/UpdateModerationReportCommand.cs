@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.ModerationReports;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -19,7 +19,7 @@ internal sealed class UpdateModerationReportCommandHandler(IUnitOfWork unitOfWor
 
     public async Task<ModerationReportDto?> Handle(UpdateModerationReportCommand request, CancellationToken cancellationToken)
     {
-        var repository = unitOfWork.Repository<EdumapHexagonal.Infrastructure.ReportesModeracion>();
+        var repository = unitOfWork.Repository<EdumapHexagonal.Domain.Models.ReportesModeracion>();
 
         var entity = await repository.GetByIdAsync(request.IdReporte, cancellationToken);
         if (entity is null) return null;
@@ -46,3 +46,4 @@ internal sealed class UpdateModerationReportCommandHandler(IUnitOfWork unitOfWor
         };
     }
 }
+

@@ -18,13 +18,13 @@ internal sealed class CreateInstitutionCategoryCommandHandler(IUnitOfWork unitOf
         CreateInstitutionCategoryCommand request,
         CancellationToken cancellationToken)
     {
-        var entity = new EdumapHexagonal.Infrastructure.CategoriasInstitucion
+        var entity = new EdumapHexagonal.Domain.Models.CategoriasInstitucion
         {
             NombreCategoria = request.NombreCategoria,
             NivelEducativo = request.NivelEducativo
         };
 
-        await unitOfWork.Repository<EdumapHexagonal.Infrastructure.CategoriasInstitucion>()
+        await unitOfWork.Repository<EdumapHexagonal.Domain.Models.CategoriasInstitucion>()
             .AddAsync(entity, cancellationToken);
 
         await unitOfWork.SaveChangesAsync(cancellationToken);
@@ -37,3 +37,4 @@ internal sealed class CreateInstitutionCategoryCommandHandler(IUnitOfWork unitOf
         };
     }
 }
+

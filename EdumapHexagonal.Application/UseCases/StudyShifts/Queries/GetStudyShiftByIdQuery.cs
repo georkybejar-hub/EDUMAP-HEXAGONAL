@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.StudyShifts;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -18,7 +18,7 @@ internal sealed class GetStudyShiftByIdQueryHandler(IUnitOfWork unitOfWork)
     public async Task<StudyShiftDto?> Handle(GetStudyShiftByIdQuery request, CancellationToken cancellationToken)
     {
         var entity = await unitOfWork
-            .Repository<EdumapHexagonal.Infrastructure.TurnosEstudio>()
+            .Repository<EdumapHexagonal.Domain.Models.TurnosEstudio>()
             .GetByIdAsync(request.IdTurno, cancellationToken);
 
         if (entity is null) return null;
@@ -30,3 +30,4 @@ internal sealed class GetStudyShiftByIdQueryHandler(IUnitOfWork unitOfWork)
         };
     }
 }
+

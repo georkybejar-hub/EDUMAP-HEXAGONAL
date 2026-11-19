@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.Ports.Persistence;
 
 namespace EdumapHexagonal.Application.UseCases.StudyShifts.Commands;
@@ -13,7 +13,7 @@ internal sealed class DeleteStudyShiftCommandHandler(IUnitOfWork unitOfWork)
 {
     public async Task<bool> Handle(DeleteStudyShiftCommand request, CancellationToken cancellationToken)
     {
-        var repository = unitOfWork.Repository<EdumapHexagonal.Infrastructure.TurnosEstudio>();
+        var repository = unitOfWork.Repository<EdumapHexagonal.Domain.Models.TurnosEstudio>();
 
         var entity = await repository.GetByIdAsync(request.IdTurno, cancellationToken);
         if (entity is null) return false;
@@ -23,3 +23,4 @@ internal sealed class DeleteStudyShiftCommandHandler(IUnitOfWork unitOfWork)
         return true;
     }
 }
+

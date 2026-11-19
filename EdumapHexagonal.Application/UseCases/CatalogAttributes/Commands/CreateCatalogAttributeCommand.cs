@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.CatalogAttributes;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -15,13 +15,13 @@ internal sealed class CreateCatalogAttributeCommandHandler(IUnitOfWork unitOfWor
 {
     public async Task<CatalogAttributeDto> Handle(CreateCatalogAttributeCommand request, CancellationToken cancellationToken)
     {
-        var entity = new EdumapHexagonal.Infrastructure.AtributosCatalogo
+        var entity = new EdumapHexagonal.Domain.Models.AtributosCatalogo
         {
             IdCatAtributo = request.IdCatAtributo,
             NombreAtributo = request.NombreAtributo
         };
 
-        await unitOfWork.Repository<EdumapHexagonal.Infrastructure.AtributosCatalogo>().AddAsync(entity, cancellationToken);
+        await unitOfWork.Repository<EdumapHexagonal.Domain.Models.AtributosCatalogo>().AddAsync(entity, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return new CatalogAttributeDto
@@ -32,3 +32,4 @@ internal sealed class CreateCatalogAttributeCommandHandler(IUnitOfWork unitOfWor
         };
     }
 }
+

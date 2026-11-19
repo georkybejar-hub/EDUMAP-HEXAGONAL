@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.Permissions;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -12,7 +12,7 @@ internal sealed class GetPermissionByIdQueryHandler(IUnitOfWork unitOfWork)
     public async Task<PermissionDto?> Handle(GetPermissionByIdQuery request, CancellationToken cancellationToken)
     {
         var e = await unitOfWork
-            .Repository<EdumapHexagonal.Infrastructure.Permiso>()
+            .Repository<EdumapHexagonal.Domain.Models.Permiso>()
             .GetByIdAsync(request.Id, cancellationToken);
 
         if (e is null) return null;
@@ -25,3 +25,4 @@ internal sealed class GetPermissionByIdQueryHandler(IUnitOfWork unitOfWork)
         };
     }
 }
+

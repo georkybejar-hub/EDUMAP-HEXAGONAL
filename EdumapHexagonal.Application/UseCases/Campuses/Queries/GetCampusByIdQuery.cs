@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.Campuses;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -15,7 +15,7 @@ internal sealed class GetCampusByIdQueryHandler(IUnitOfWork unitOfWork)
     public async Task<CampusDto?> Handle(GetCampusByIdQuery request, CancellationToken cancellationToken)
     {
         var entity = await unitOfWork
-            .Repository<EdumapHexagonal.Infrastructure.SedesInstitucion>()
+            .Repository<EdumapHexagonal.Domain.Models.SedesInstitucion>()
             .GetByIdAsync(request.IdSede, cancellationToken);
 
         if (entity is null) return null;
@@ -34,3 +34,4 @@ internal sealed class GetCampusByIdQueryHandler(IUnitOfWork unitOfWork)
         };
     }
 }
+

@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.ModerationReports;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -12,7 +12,7 @@ internal sealed class GetAllModerationReportsQueryHandler(IUnitOfWork unitOfWork
     public async Task<IReadOnlyList<ModerationReportDto>> Handle(GetAllModerationReportsQuery request, CancellationToken cancellationToken)
     {
         var entities = await unitOfWork
-            .Repository<EdumapHexagonal.Infrastructure.ReportesModeracion>()
+            .Repository<EdumapHexagonal.Domain.Models.ReportesModeracion>()
             .GetAllAsync(cancellationToken);
 
         return entities
@@ -31,3 +31,4 @@ internal sealed class GetAllModerationReportsQueryHandler(IUnitOfWork unitOfWork
             .ToList();
     }
 }
+

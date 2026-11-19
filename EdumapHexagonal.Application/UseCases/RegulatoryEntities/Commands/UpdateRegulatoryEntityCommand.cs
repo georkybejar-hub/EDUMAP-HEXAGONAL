@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.RegulatoryEntities;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -16,7 +16,7 @@ internal sealed class UpdateRegulatoryEntityCommandHandler(IUnitOfWork unitOfWor
 {
     public async Task<RegulatoryEntityDto?> Handle(UpdateRegulatoryEntityCommand request, CancellationToken cancellationToken)
     {
-        var repository = unitOfWork.Repository<EdumapHexagonal.Infrastructure.EntidadesReguladora>();
+        var repository = unitOfWork.Repository<EdumapHexagonal.Domain.Models.EntidadesReguladora>();
 
         var entity = await repository.GetByIdAsync(request.IdReguladora, cancellationToken);
         if (entity is null) return null;
@@ -35,3 +35,4 @@ internal sealed class UpdateRegulatoryEntityCommandHandler(IUnitOfWork unitOfWor
         };
     }
 }
+

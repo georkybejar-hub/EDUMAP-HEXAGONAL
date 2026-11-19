@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.Ports.Persistence;
 
 namespace EdumapHexagonal.Application.UseCases.StudyModes.Commands;
@@ -13,7 +13,7 @@ internal sealed class DeleteStudyModeCommandHandler(IUnitOfWork unitOfWork)
 {
     public async Task<bool> Handle(DeleteStudyModeCommand request, CancellationToken cancellationToken)
     {
-        var repository = unitOfWork.Repository<EdumapHexagonal.Infrastructure.ModalidadesEstudio>();
+        var repository = unitOfWork.Repository<EdumapHexagonal.Domain.Models.ModalidadesEstudio>();
 
         var entity = await repository.GetByIdAsync(request.IdModalidad, cancellationToken);
         if (entity is null) return false;
@@ -23,3 +23,4 @@ internal sealed class DeleteStudyModeCommandHandler(IUnitOfWork unitOfWork)
         return true;
     }
 }
+

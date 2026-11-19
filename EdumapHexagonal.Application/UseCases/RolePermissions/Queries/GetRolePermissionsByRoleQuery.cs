@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.RolePermissions;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -18,7 +18,7 @@ internal sealed class GetRolePermissionsByRoleQueryHandler(IUnitOfWork unitOfWor
     public async Task<IReadOnlyList<RolePermissionDto>> Handle(GetRolePermissionsByRoleQuery request, CancellationToken cancellationToken)
     {
         var entities = await unitOfWork
-            .Repository<EdumapHexagonal.Infrastructure.RolPermiso>()
+            .Repository<EdumapHexagonal.Domain.Models.RolPermiso>()
             .GetAllAsync(rp => rp.IdRol == request.IdRol, cancellationToken);
 
         return entities
@@ -31,3 +31,4 @@ internal sealed class GetRolePermissionsByRoleQueryHandler(IUnitOfWork unitOfWor
             .ToList();
     }
 }
+

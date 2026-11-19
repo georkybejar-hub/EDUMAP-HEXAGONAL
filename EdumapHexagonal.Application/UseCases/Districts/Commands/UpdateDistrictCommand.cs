@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.Districts;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -18,7 +18,7 @@ internal sealed class UpdateDistrictCommandHandler(IUnitOfWork unitOfWork)
 {
     public async Task<DistrictDto?> Handle(UpdateDistrictCommand request, CancellationToken cancellationToken)
     {
-        var repository = unitOfWork.Repository<EdumapHexagonal.Infrastructure.Distrito>();
+        var repository = unitOfWork.Repository<EdumapHexagonal.Domain.Models.Distrito>();
 
         var entity = await repository.GetByIdAsync(request.IdDistrito, cancellationToken);
         if (entity is null) return null;
@@ -41,3 +41,4 @@ internal sealed class UpdateDistrictCommandHandler(IUnitOfWork unitOfWork)
         };
     }
 }
+

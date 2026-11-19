@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EdumapHexagonal.Infrastructure;
+namespace EdumapHexagonal.Domain.Models;
 
 public partial class MultimediaInstitucion
 {
@@ -19,3 +19,4 @@ public partial class MultimediaInstitucion
 
     public virtual Institucione IdInstitucionNavigation { get; set; } = null!;
 }
+

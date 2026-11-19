@@ -15,7 +15,7 @@ internal sealed class DeleteInstitutionCategoryCommandHandler(IUnitOfWork unitOf
         DeleteInstitutionCategoryCommand request,
         CancellationToken cancellationToken)
     {
-        var repository = unitOfWork.Repository<EdumapHexagonal.Infrastructure.CategoriasInstitucion>();
+        var repository = unitOfWork.Repository<EdumapHexagonal.Domain.Models.CategoriasInstitucion>();
 
         var entity = await repository.GetByIdAsync(request.IdCategoria, cancellationToken);
         if (entity is null) return false;

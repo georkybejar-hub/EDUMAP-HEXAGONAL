@@ -27,7 +27,7 @@ internal sealed class CreateInstitutionCommandHandler(IUnitOfWork unitOfWork)
         CreateInstitutionCommand request,
         CancellationToken cancellationToken)
     {
-        var entity = new EdumapHexagonal.Infrastructure.Institucione
+        var entity = new EdumapHexagonal.Domain.Models.Institucione
         {
             IdCategoria = request.IdCategoria,
             IdTipoGestion = request.IdTipoGestion,
@@ -43,7 +43,7 @@ internal sealed class CreateInstitutionCommandHandler(IUnitOfWork unitOfWork)
             FechaCreacion = DateTime.UtcNow
         };
 
-        await unitOfWork.Repository<EdumapHexagonal.Infrastructure.Institucione>()
+        await unitOfWork.Repository<EdumapHexagonal.Domain.Models.Institucione>()
             .AddAsync(entity, cancellationToken);
 
         await unitOfWork.SaveChangesAsync(cancellationToken);
@@ -66,3 +66,4 @@ internal sealed class CreateInstitutionCommandHandler(IUnitOfWork unitOfWork)
         };
     }
 }
+

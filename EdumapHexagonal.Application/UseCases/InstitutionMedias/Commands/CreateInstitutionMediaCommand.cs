@@ -20,7 +20,7 @@ internal sealed class CreateInstitutionMediaCommandHandler(IUnitOfWork unitOfWor
         CreateInstitutionMediaCommand request,
         CancellationToken cancellationToken)
     {
-        var entity = new EdumapHexagonal.Infrastructure.MultimediaInstitucion
+        var entity = new EdumapHexagonal.Domain.Models.MultimediaInstitucion
         {
             IdInstitucion = request.IdInstitucion,
             UrlArchivo = request.UrlArchivo,
@@ -29,7 +29,7 @@ internal sealed class CreateInstitutionMediaCommandHandler(IUnitOfWork unitOfWor
             OrdenVisual = request.OrdenVisual
         };
 
-        await unitOfWork.Repository<EdumapHexagonal.Infrastructure.MultimediaInstitucion>()
+        await unitOfWork.Repository<EdumapHexagonal.Domain.Models.MultimediaInstitucion>()
             .AddAsync(entity, cancellationToken);
 
         await unitOfWork.SaveChangesAsync(cancellationToken);

@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.Districts;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -12,7 +12,7 @@ internal sealed class GetAllDistrictsQueryHandler(IUnitOfWork unitOfWork)
     public async Task<IReadOnlyList<DistrictDto>> Handle(GetAllDistrictsQuery request, CancellationToken cancellationToken)
     {
         var entities = await unitOfWork
-            .Repository<EdumapHexagonal.Infrastructure.Distrito>()
+            .Repository<EdumapHexagonal.Domain.Models.Distrito>()
             .GetAllAsync(cancellationToken);
 
         return entities
@@ -27,3 +27,4 @@ internal sealed class GetAllDistrictsQueryHandler(IUnitOfWork unitOfWork)
             .ToList();
     }
 }
+

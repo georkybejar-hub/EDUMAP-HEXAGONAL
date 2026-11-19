@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.EducationalOffers;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -12,7 +12,7 @@ internal sealed class GetAllEducationalOffersQueryHandler(IUnitOfWork unitOfWork
     public async Task<IReadOnlyList<EducationalOfferDto>> Handle(GetAllEducationalOffersQuery request, CancellationToken cancellationToken)
     {
         var entities = await unitOfWork
-            .Repository<EdumapHexagonal.Infrastructure.OfertasEducativa>()
+            .Repository<EdumapHexagonal.Domain.Models.OfertasEducativa>()
             .GetAllAsync(cancellationToken);
 
         return entities
@@ -32,3 +32,4 @@ internal sealed class GetAllEducationalOffersQueryHandler(IUnitOfWork unitOfWork
             .ToList();
     }
 }
+

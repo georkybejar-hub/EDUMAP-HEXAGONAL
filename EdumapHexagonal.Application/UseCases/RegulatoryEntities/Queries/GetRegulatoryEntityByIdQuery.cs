@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.RegulatoryEntities;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -12,7 +12,7 @@ internal sealed class GetRegulatoryEntityByIdQueryHandler(IUnitOfWork unitOfWork
     public async Task<RegulatoryEntityDto?> Handle(GetRegulatoryEntityByIdQuery request, CancellationToken cancellationToken)
     {
         var e = await unitOfWork
-            .Repository<EdumapHexagonal.Infrastructure.EntidadesReguladora>()
+            .Repository<EdumapHexagonal.Domain.Models.EntidadesReguladora>()
             .GetByIdAsync(request.Id, cancellationToken);
 
         if (e is null) return null;
@@ -25,3 +25,4 @@ internal sealed class GetRegulatoryEntityByIdQueryHandler(IUnitOfWork unitOfWork
         };
     }
 }
+

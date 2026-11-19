@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.ModerationReports;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -16,7 +16,7 @@ internal sealed class GetPendingModerationReportsQueryHandler(IUnitOfWork unitOf
         CancellationToken cancellationToken)
     {
         var reports = await unitOfWork
-            .Repository<EdumapHexagonal.Infrastructure.ReportesModeracion>()
+            .Repository<EdumapHexagonal.Domain.Models.ReportesModeracion>()
             .GetAllAsync(e => e.EstadoRevision == PendingStatus, cancellationToken);
 
         return reports
@@ -37,3 +37,4 @@ internal sealed class GetPendingModerationReportsQueryHandler(IUnitOfWork unitOf
             .ToList();
     }
 }
+

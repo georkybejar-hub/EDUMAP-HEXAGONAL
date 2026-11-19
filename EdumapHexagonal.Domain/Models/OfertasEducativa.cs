@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EdumapHexagonal.Infrastructure;
+namespace EdumapHexagonal.Domain.Models;
 
 public partial class OfertasEducativa
 {
@@ -33,3 +33,4 @@ public partial class OfertasEducativa
 
     public virtual TurnosEstudio IdTurnoNavigation { get; set; } = null!;
 }
+

@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.StudyModes;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -14,12 +14,12 @@ internal sealed class CreateStudyModeCommandHandler(IUnitOfWork unitOfWork)
 {
     public async Task<StudyModeDto> Handle(CreateStudyModeCommand request, CancellationToken cancellationToken)
     {
-        var entity = new EdumapHexagonal.Infrastructure.ModalidadesEstudio
+        var entity = new EdumapHexagonal.Domain.Models.ModalidadesEstudio
         {
             NombreModalidad = request.NombreModalidad
         };
 
-        await unitOfWork.Repository<EdumapHexagonal.Infrastructure.ModalidadesEstudio>().AddAsync(entity, cancellationToken);
+        await unitOfWork.Repository<EdumapHexagonal.Domain.Models.ModalidadesEstudio>().AddAsync(entity, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return new StudyModeDto
@@ -29,3 +29,4 @@ internal sealed class CreateStudyModeCommandHandler(IUnitOfWork unitOfWork)
         };
     }
 }
+

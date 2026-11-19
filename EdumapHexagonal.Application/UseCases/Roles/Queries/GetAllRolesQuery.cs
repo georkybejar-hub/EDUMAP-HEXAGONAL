@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.Roles;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -12,7 +12,7 @@ internal sealed class GetAllRolesQueryHandler(IUnitOfWork unitOfWork)
     public async Task<IReadOnlyList<RoleDto>> Handle(GetAllRolesQuery request, CancellationToken cancellationToken)
     {
         var entities = await unitOfWork
-            .Repository<EdumapHexagonal.Infrastructure.Role>()
+            .Repository<EdumapHexagonal.Domain.Models.Role>()
             .GetAllAsync(cancellationToken);
 
         return entities
@@ -25,3 +25,4 @@ internal sealed class GetAllRolesQueryHandler(IUnitOfWork unitOfWork)
             .ToList();
     }
 }
+

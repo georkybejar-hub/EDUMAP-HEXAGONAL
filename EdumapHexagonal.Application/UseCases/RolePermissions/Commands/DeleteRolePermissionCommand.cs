@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.Ports.Persistence;
 
 namespace EdumapHexagonal.Application.UseCases.RolePermissions.Commands;
@@ -14,7 +14,7 @@ internal sealed class DeleteRolePermissionCommandHandler(IUnitOfWork unitOfWork)
 {
     public async Task<bool> Handle(DeleteRolePermissionCommand request, CancellationToken cancellationToken)
     {
-        var repository = unitOfWork.Repository<EdumapHexagonal.Infrastructure.RolPermiso>();
+        var repository = unitOfWork.Repository<EdumapHexagonal.Domain.Models.RolPermiso>();
 
         var entity = await repository.FirstOrDefaultAsync(
             rp => rp.IdRol == request.IdRol && rp.IdPermiso == request.IdPermiso,
@@ -27,3 +27,4 @@ internal sealed class DeleteRolePermissionCommandHandler(IUnitOfWork unitOfWork)
         return true;
     }
 }
+

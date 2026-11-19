@@ -17,7 +17,7 @@ internal sealed class GetInstitutionMediaByIdQueryHandler(IUnitOfWork unitOfWork
         CancellationToken cancellationToken)
     {
         var entity = await unitOfWork
-            .Repository<EdumapHexagonal.Infrastructure.MultimediaInstitucion>()
+            .Repository<EdumapHexagonal.Domain.Models.MultimediaInstitucion>()
             .GetByIdAsync(request.IdMultimedia, cancellationToken);
 
         if (entity is null) return null;

@@ -15,14 +15,14 @@ internal sealed class CreateAcademicProgramCommandHandler(IUnitOfWork unitOfWork
 {
     public async Task<AcademicProgramDto> Handle(CreateAcademicProgramCommand request, CancellationToken cancellationToken)
     {
-        var entity = new EdumapHexagonal.Infrastructure.ProgramasAcademico
+        var entity = new EdumapHexagonal.Domain.Models.ProgramasAcademico
         {
             IdCategoria = request.IdCategoria,
             NombrePrograma = request.NombrePrograma,
             AreaAcademica = request.AreaAcademica
         };
 
-        await unitOfWork.Repository<EdumapHexagonal.Infrastructure.ProgramasAcademico>().AddAsync(entity);
+        await unitOfWork.Repository<EdumapHexagonal.Domain.Models.ProgramasAcademico>().AddAsync(entity);
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
         var e = entity;

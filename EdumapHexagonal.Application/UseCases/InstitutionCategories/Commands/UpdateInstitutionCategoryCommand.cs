@@ -18,7 +18,7 @@ internal sealed class UpdateInstitutionCategoryCommandHandler(IUnitOfWork unitOf
         UpdateInstitutionCategoryCommand request,
         CancellationToken cancellationToken)
     {
-        var repository = unitOfWork.Repository<EdumapHexagonal.Infrastructure.CategoriasInstitucion>();
+        var repository = unitOfWork.Repository<EdumapHexagonal.Domain.Models.CategoriasInstitucion>();
 
         var entity = await repository.GetByIdAsync(request.IdCategoria, cancellationToken);
         if (entity is null) return null;

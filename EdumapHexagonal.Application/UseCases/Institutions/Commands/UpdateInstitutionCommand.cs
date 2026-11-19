@@ -28,7 +28,7 @@ internal sealed class UpdateInstitutionCommandHandler(IUnitOfWork unitOfWork)
         UpdateInstitutionCommand request,
         CancellationToken cancellationToken)
     {
-        var repository = unitOfWork.Repository<EdumapHexagonal.Infrastructure.Institucione>();
+        var repository = unitOfWork.Repository<EdumapHexagonal.Domain.Models.Institucione>();
 
         var entity = await repository.GetByIdAsync(request.IdInstitucion, cancellationToken);
         if (entity is null) return null;
@@ -66,3 +66,4 @@ internal sealed class UpdateInstitutionCommandHandler(IUnitOfWork unitOfWork)
         };
     }
 }
+

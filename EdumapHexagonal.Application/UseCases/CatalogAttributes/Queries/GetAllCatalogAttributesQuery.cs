@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.CatalogAttributes;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -12,7 +12,7 @@ internal sealed class GetAllCatalogAttributesQueryHandler(IUnitOfWork unitOfWork
     public async Task<IReadOnlyList<CatalogAttributeDto>> Handle(GetAllCatalogAttributesQuery request, CancellationToken cancellationToken)
     {
         var entities = await unitOfWork
-            .Repository<EdumapHexagonal.Infrastructure.AtributosCatalogo>()
+            .Repository<EdumapHexagonal.Domain.Models.AtributosCatalogo>()
             .GetAllAsync(cancellationToken);
 
         return entities
@@ -25,3 +25,4 @@ internal sealed class GetAllCatalogAttributesQueryHandler(IUnitOfWork unitOfWork
             .ToList();
     }
 }
+

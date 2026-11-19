@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.ContactChannels;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -19,7 +19,7 @@ internal sealed class UpdateContactChannelCommandHandler(IUnitOfWork unitOfWork)
 {
     public async Task<ContactChannelDto?> Handle(UpdateContactChannelCommand request, CancellationToken cancellationToken)
     {
-        var repository = unitOfWork.Repository<EdumapHexagonal.Infrastructure.CanalesContactoSede>();
+        var repository = unitOfWork.Repository<EdumapHexagonal.Domain.Models.CanalesContactoSede>();
 
         var entity = await repository.GetByIdAsync(request.IdContacto, cancellationToken);
         if (entity is null) return null;
@@ -44,3 +44,4 @@ internal sealed class UpdateContactChannelCommandHandler(IUnitOfWork unitOfWork)
         };
     }
 }
+

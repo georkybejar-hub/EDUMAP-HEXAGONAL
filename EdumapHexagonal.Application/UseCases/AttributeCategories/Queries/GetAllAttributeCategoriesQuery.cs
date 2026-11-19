@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.AttributeCategories;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -12,7 +12,7 @@ internal sealed class GetAllAttributeCategoriesQueryHandler(IUnitOfWork unitOfWo
     public async Task<IReadOnlyList<AttributeCategoryDto>> Handle(GetAllAttributeCategoriesQuery request, CancellationToken cancellationToken)
     {
         var entities = await unitOfWork
-            .Repository<EdumapHexagonal.Infrastructure.CategoriasAtributo>()
+            .Repository<EdumapHexagonal.Domain.Models.CategoriasAtributo>()
             .GetAllAsync(cancellationToken);
 
         return entities
@@ -25,3 +25,4 @@ internal sealed class GetAllAttributeCategoriesQueryHandler(IUnitOfWork unitOfWo
             .ToList();
     }
 }
+

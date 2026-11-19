@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.StudyShifts;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -12,7 +12,7 @@ internal sealed class GetAllStudyShiftsQueryHandler(IUnitOfWork unitOfWork)
     public async Task<IReadOnlyList<StudyShiftDto>> Handle(GetAllStudyShiftsQuery request, CancellationToken cancellationToken)
     {
         var entities = await unitOfWork
-            .Repository<EdumapHexagonal.Infrastructure.TurnosEstudio>()
+            .Repository<EdumapHexagonal.Domain.Models.TurnosEstudio>()
             .GetAllAsync(cancellationToken);
 
         return entities
@@ -24,3 +24,4 @@ internal sealed class GetAllStudyShiftsQueryHandler(IUnitOfWork unitOfWork)
             .ToList();
     }
 }
+

@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.Districts;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -15,7 +15,7 @@ internal sealed class GetDistrictByIdQueryHandler(IUnitOfWork unitOfWork)
     public async Task<DistrictDto?> Handle(GetDistrictByIdQuery request, CancellationToken cancellationToken)
     {
         var entity = await unitOfWork
-            .Repository<EdumapHexagonal.Infrastructure.Distrito>()
+            .Repository<EdumapHexagonal.Domain.Models.Distrito>()
             .GetByIdAsync(request.IdDistrito, cancellationToken);
 
         if (entity is null) return null;
@@ -30,3 +30,4 @@ internal sealed class GetDistrictByIdQueryHandler(IUnitOfWork unitOfWork)
         };
     }
 }
+

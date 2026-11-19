@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.Favorites;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -15,7 +15,7 @@ internal sealed class GetFavoritesByUserQueryHandler(IUnitOfWork unitOfWork)
     public async Task<IReadOnlyList<FavoriteDto>> Handle(GetFavoritesByUserQuery request, CancellationToken cancellationToken)
     {
         var entities = await unitOfWork
-            .Repository<EdumapHexagonal.Infrastructure.FavoritosComparador>()
+            .Repository<EdumapHexagonal.Domain.Models.FavoritosComparador>()
             .GetAllAsync(cancellationToken);
 
         return entities
@@ -29,3 +29,4 @@ internal sealed class GetFavoritesByUserQueryHandler(IUnitOfWork unitOfWork)
             .ToList();
     }
 }
+

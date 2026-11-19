@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.Campuses;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -12,7 +12,7 @@ internal sealed class GetAllCampusesQueryHandler(IUnitOfWork unitOfWork)
     public async Task<IReadOnlyList<CampusDto>> Handle(GetAllCampusesQuery request, CancellationToken cancellationToken)
     {
         var entities = await unitOfWork
-            .Repository<EdumapHexagonal.Infrastructure.SedesInstitucion>()
+            .Repository<EdumapHexagonal.Domain.Models.SedesInstitucion>()
             .GetAllAsync(cancellationToken);
 
         return entities
@@ -31,3 +31,4 @@ internal sealed class GetAllCampusesQueryHandler(IUnitOfWork unitOfWork)
             .ToList();
     }
 }
+

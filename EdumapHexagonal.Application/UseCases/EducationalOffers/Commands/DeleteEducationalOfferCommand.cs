@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.Ports.Persistence;
 
 namespace EdumapHexagonal.Application.UseCases.EducationalOffers.Commands;
@@ -13,7 +13,7 @@ internal sealed class DeleteEducationalOfferCommandHandler(IUnitOfWork unitOfWor
 {
     public async Task<bool> Handle(DeleteEducationalOfferCommand request, CancellationToken cancellationToken)
     {
-        var repository = unitOfWork.Repository<EdumapHexagonal.Infrastructure.OfertasEducativa>();
+        var repository = unitOfWork.Repository<EdumapHexagonal.Domain.Models.OfertasEducativa>();
 
         var entity = await repository.GetByIdAsync(request.IdOferta, cancellationToken);
         if (entity is null) return false;
@@ -23,3 +23,4 @@ internal sealed class DeleteEducationalOfferCommandHandler(IUnitOfWork unitOfWor
         return true;
     }
 }
+

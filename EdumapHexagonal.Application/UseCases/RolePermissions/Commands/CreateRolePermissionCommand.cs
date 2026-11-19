@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.RolePermissions;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -15,7 +15,7 @@ internal sealed class CreateRolePermissionCommandHandler(IUnitOfWork unitOfWork)
 {
     public async Task<RolePermissionDto> Handle(CreateRolePermissionCommand request, CancellationToken cancellationToken)
     {
-        var repository = unitOfWork.Repository<EdumapHexagonal.Infrastructure.RolPermiso>();
+        var repository = unitOfWork.Repository<EdumapHexagonal.Domain.Models.RolPermiso>();
 
         var existing = await repository.FirstOrDefaultAsync(
             rp => rp.IdRol == request.IdRol && rp.IdPermiso == request.IdPermiso,
@@ -31,7 +31,7 @@ internal sealed class CreateRolePermissionCommandHandler(IUnitOfWork unitOfWork)
             };
         }
 
-        var entity = new EdumapHexagonal.Infrastructure.RolPermiso
+        var entity = new EdumapHexagonal.Domain.Models.RolPermiso
         {
             IdRol = request.IdRol,
             IdPermiso = request.IdPermiso,
@@ -49,3 +49,4 @@ internal sealed class CreateRolePermissionCommandHandler(IUnitOfWork unitOfWork)
         };
     }
 }
+

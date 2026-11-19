@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.Ports.Persistence;
 
 namespace EdumapHexagonal.Application.UseCases.CatalogAttributes.Commands;
@@ -13,7 +13,7 @@ internal sealed class DeleteCatalogAttributeCommandHandler(IUnitOfWork unitOfWor
 {
     public async Task<bool> Handle(DeleteCatalogAttributeCommand request, CancellationToken cancellationToken)
     {
-        var repository = unitOfWork.Repository<EdumapHexagonal.Infrastructure.AtributosCatalogo>();
+        var repository = unitOfWork.Repository<EdumapHexagonal.Domain.Models.AtributosCatalogo>();
 
         var entity = await repository.GetByIdAsync(request.IdAtributo, cancellationToken);
         if (entity is null) return false;
@@ -23,3 +23,4 @@ internal sealed class DeleteCatalogAttributeCommandHandler(IUnitOfWork unitOfWor
         return true;
     }
 }
+

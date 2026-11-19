@@ -17,7 +17,7 @@ internal sealed class GetManagementTypeByIdQueryHandler(IUnitOfWork unitOfWork)
         CancellationToken cancellationToken)
     {
         var entity = await unitOfWork
-            .Repository<EdumapHexagonal.Infrastructure.TiposGestion>()
+            .Repository<EdumapHexagonal.Domain.Models.TiposGestion>()
             .GetByIdAsync(request.IdTipoGestion, cancellationToken);
 
         if (entity is null) return null;

@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.InstitutionAttributes;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -15,7 +15,7 @@ internal sealed class GetInstitutionAttributesByInstitutionQueryHandler(IUnitOfW
     public async Task<IReadOnlyList<InstitutionAttributeDto>> Handle(GetInstitutionAttributesByInstitutionQuery request, CancellationToken cancellationToken)
     {
         var entities = await unitOfWork
-            .Repository<EdumapHexagonal.Infrastructure.InstitucionAtributo>()
+            .Repository<EdumapHexagonal.Domain.Models.InstitucionAtributo>()
             .GetAllAsync(cancellationToken);
 
         return entities
@@ -29,3 +29,4 @@ internal sealed class GetInstitutionAttributesByInstitutionQueryHandler(IUnitOfW
             .ToList();
     }
 }
+

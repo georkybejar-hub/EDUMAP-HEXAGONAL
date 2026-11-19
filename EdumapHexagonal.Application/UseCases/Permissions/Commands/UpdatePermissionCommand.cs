@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.Permissions;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -16,7 +16,7 @@ internal sealed class UpdatePermissionCommandHandler(IUnitOfWork unitOfWork)
 {
     public async Task<PermissionDto?> Handle(UpdatePermissionCommand request, CancellationToken cancellationToken)
     {
-        var repository = unitOfWork.Repository<EdumapHexagonal.Infrastructure.Permiso>();
+        var repository = unitOfWork.Repository<EdumapHexagonal.Domain.Models.Permiso>();
 
         var entity = await repository.GetByIdAsync(request.IdPermiso, cancellationToken);
         if (entity is null) return null;
@@ -35,3 +35,4 @@ internal sealed class UpdatePermissionCommandHandler(IUnitOfWork unitOfWork)
         };
     }
 }
+

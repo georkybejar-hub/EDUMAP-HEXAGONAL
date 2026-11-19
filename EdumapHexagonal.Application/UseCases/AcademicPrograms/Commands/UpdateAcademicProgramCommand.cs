@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.AcademicPrograms;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -17,7 +17,7 @@ internal sealed class UpdateAcademicProgramCommandHandler(IUnitOfWork unitOfWork
 {
     public async Task<AcademicProgramDto?> Handle(UpdateAcademicProgramCommand request, CancellationToken cancellationToken)
     {
-        var repository = unitOfWork.Repository<EdumapHexagonal.Infrastructure.ProgramasAcademico>();
+        var repository = unitOfWork.Repository<EdumapHexagonal.Domain.Models.ProgramasAcademico>();
 
         var entity = await repository.GetByIdAsync(request.IdPrograma, cancellationToken);
         if (entity is null) return null;
@@ -38,3 +38,4 @@ internal sealed class UpdateAcademicProgramCommandHandler(IUnitOfWork unitOfWork
         };
     }
 }
+

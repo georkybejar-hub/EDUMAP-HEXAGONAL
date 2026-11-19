@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.Users;
 using EdumapHexagonal.Application.Ports.Authentication;
 using EdumapHexagonal.Application.Ports.Persistence;
@@ -23,7 +23,7 @@ internal sealed class UpdateUserCommandHandler(
 {
     public async Task<UserDto?> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
     {
-        var repository = unitOfWork.Repository<EdumapHexagonal.Infrastructure.Usuario>();
+        var repository = unitOfWork.Repository<EdumapHexagonal.Domain.Models.Usuario>();
 
         var entity = await repository.GetByIdAsync(request.IdUsuario, cancellationToken);
         if (entity is null) return null;
@@ -37,7 +37,7 @@ internal sealed class UpdateUserCommandHandler(
 
             if (emailExists)
             {
-                throw new InvalidOperationException($"El correo '{email}' ya está en uso por otro usuario.");
+                throw new InvalidOperationException($"El correo '{email}' ya estÃ¡ en uso por otro usuario.");
             }
         }
 
@@ -71,3 +71,4 @@ internal sealed class UpdateUserCommandHandler(
         };
     }
 }
+

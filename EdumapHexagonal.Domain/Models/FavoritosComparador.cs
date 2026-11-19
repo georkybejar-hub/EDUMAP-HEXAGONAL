@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EdumapHexagonal.Infrastructure;
+namespace EdumapHexagonal.Domain.Models;
 
 public partial class FavoritosComparador
 {
@@ -15,3 +15,4 @@ public partial class FavoritosComparador
 
     public virtual Usuario IdUsuarioNavigation { get; set; } = null!;
 }
+

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EdumapHexagonal.Infrastructure;
+namespace EdumapHexagonal.Domain.Models;
 
 public partial class VwBuscadorInstitucione
 {
@@ -41,3 +41,4 @@ public partial class VwBuscadorInstitucione
 
     public long? TotalGuardadosComparador { get; set; }
 }
+

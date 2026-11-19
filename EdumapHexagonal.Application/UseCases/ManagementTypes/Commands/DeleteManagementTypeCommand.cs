@@ -15,7 +15,7 @@ internal sealed class DeleteManagementTypeCommandHandler(IUnitOfWork unitOfWork)
         DeleteManagementTypeCommand request,
         CancellationToken cancellationToken)
     {
-        var repository = unitOfWork.Repository<EdumapHexagonal.Infrastructure.TiposGestion>();
+        var repository = unitOfWork.Repository<EdumapHexagonal.Domain.Models.TiposGestion>();
 
         var entity = await repository.GetByIdAsync(
             request.IdTipoGestion,

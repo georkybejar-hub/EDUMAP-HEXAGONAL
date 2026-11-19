@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.Campuses;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -21,7 +21,7 @@ internal sealed class CreateCampusCommandHandler(IUnitOfWork unitOfWork)
 {
     public async Task<CampusDto> Handle(CreateCampusCommand request, CancellationToken cancellationToken)
     {
-        var entity = new EdumapHexagonal.Infrastructure.SedesInstitucion
+        var entity = new EdumapHexagonal.Domain.Models.SedesInstitucion
         {
             IdInstitucion = request.IdInstitucion,
             IdDistrito = request.IdDistrito,
@@ -33,7 +33,7 @@ internal sealed class CreateCampusCommandHandler(IUnitOfWork unitOfWork)
             EsPrincipal = request.EsPrincipal
         };
 
-        await unitOfWork.Repository<EdumapHexagonal.Infrastructure.SedesInstitucion>().AddAsync(entity, cancellationToken);
+        await unitOfWork.Repository<EdumapHexagonal.Domain.Models.SedesInstitucion>().AddAsync(entity, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return new CampusDto
@@ -50,3 +50,4 @@ internal sealed class CreateCampusCommandHandler(IUnitOfWork unitOfWork)
         };
     }
 }
+

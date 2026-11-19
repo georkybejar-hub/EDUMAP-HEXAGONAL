@@ -1,6 +1,6 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using EdumapHexagonal.Infrastructure;
+using EdumapHexagonal.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace EdumapHexagonal.Infrastructure.Contexts;
@@ -97,7 +97,7 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.IdContacto).HasColumnName("id_contacto");
             entity.Property(e => e.AreaAtencion)
                 .HasMaxLength(80)
-                .HasDefaultValueSql("'Admisi�n e Informes'::character varying")
+                .HasDefaultValueSql("'Admisión e Informes'::character varying")
                 .HasColumnName("area_atencion");
             entity.Property(e => e.HorarioAtencion)
                 .HasMaxLength(100)
@@ -695,3 +695,4 @@ public partial class ApplicationDbContext : DbContext
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }
+

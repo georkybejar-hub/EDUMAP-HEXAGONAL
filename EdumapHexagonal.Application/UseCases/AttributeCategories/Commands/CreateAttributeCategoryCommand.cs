@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.AttributeCategories;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -15,13 +15,13 @@ internal sealed class CreateAttributeCategoryCommandHandler(IUnitOfWork unitOfWo
 {
     public async Task<AttributeCategoryDto> Handle(CreateAttributeCategoryCommand request, CancellationToken cancellationToken)
     {
-        var entity = new EdumapHexagonal.Infrastructure.CategoriasAtributo
+        var entity = new EdumapHexagonal.Domain.Models.CategoriasAtributo
         {
             NombreCatAtributo = request.NombreCatAtributo,
             IconoUi = request.IconoUi
         };
 
-        await unitOfWork.Repository<EdumapHexagonal.Infrastructure.CategoriasAtributo>().AddAsync(entity, cancellationToken);
+        await unitOfWork.Repository<EdumapHexagonal.Domain.Models.CategoriasAtributo>().AddAsync(entity, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return new AttributeCategoryDto
@@ -32,3 +32,4 @@ internal sealed class CreateAttributeCategoryCommandHandler(IUnitOfWork unitOfWo
         };
     }
 }
+

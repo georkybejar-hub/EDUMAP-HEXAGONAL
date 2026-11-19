@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.EducationalOffers;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -22,7 +22,7 @@ internal sealed class CreateEducationalOfferCommandHandler(IUnitOfWork unitOfWor
 {
     public async Task<EducationalOfferDto> Handle(CreateEducationalOfferCommand request, CancellationToken cancellationToken)
     {
-        var entity = new EdumapHexagonal.Infrastructure.OfertasEducativa
+        var entity = new EdumapHexagonal.Domain.Models.OfertasEducativa
         {
             IdSede = request.IdSede,
             IdPrograma = request.IdPrograma,
@@ -35,7 +35,7 @@ internal sealed class CreateEducationalOfferCommandHandler(IUnitOfWork unitOfWor
             AnioAcademico = request.AnioAcademico
         };
 
-        await unitOfWork.Repository<EdumapHexagonal.Infrastructure.OfertasEducativa>().AddAsync(entity, cancellationToken);
+        await unitOfWork.Repository<EdumapHexagonal.Domain.Models.OfertasEducativa>().AddAsync(entity, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return new EducationalOfferDto
@@ -53,3 +53,4 @@ internal sealed class CreateEducationalOfferCommandHandler(IUnitOfWork unitOfWor
         };
     }
 }
+

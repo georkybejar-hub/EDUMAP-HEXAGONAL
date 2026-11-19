@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EdumapHexagonal.Infrastructure;
+namespace EdumapHexagonal.Domain.Models;
 
 public partial class EntidadesReguladora
 {
@@ -13,3 +13,4 @@ public partial class EntidadesReguladora
 
     public virtual ICollection<Institucione> Instituciones { get; set; } = new List<Institucione>();
 }
+

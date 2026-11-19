@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.RegulatoryEntities;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -14,7 +14,7 @@ internal sealed class GetAllRegulatoryEntitiesQueryHandler(IUnitOfWork unitOfWor
         CancellationToken cancellationToken)
     {
         var entities = await unitOfWork
-            .Repository<EdumapHexagonal.Infrastructure.EntidadesReguladora>()
+            .Repository<EdumapHexagonal.Domain.Models.EntidadesReguladora>()
             .GetAllAsync(cancellationToken);
 
         return entities
@@ -27,3 +27,4 @@ internal sealed class GetAllRegulatoryEntitiesQueryHandler(IUnitOfWork unitOfWor
             .ToList();
     }
 }
+

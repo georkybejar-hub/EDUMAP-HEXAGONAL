@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using EdumapHexagonal.Application.DTOs.InstitutionAttributes;
 using EdumapHexagonal.Application.Ports.Persistence;
 
@@ -16,14 +16,14 @@ internal sealed class CreateInstitutionAttributeCommandHandler(IUnitOfWork unitO
 {
     public async Task<InstitutionAttributeDto> Handle(CreateInstitutionAttributeCommand request, CancellationToken cancellationToken)
     {
-        var entity = new EdumapHexagonal.Infrastructure.InstitucionAtributo
+        var entity = new EdumapHexagonal.Domain.Models.InstitucionAtributo
         {
             IdInstitucion = request.IdInstitucion,
             IdAtributo = request.IdAtributo,
             DetalleValor = request.DetalleValor
         };
 
-        await unitOfWork.Repository<EdumapHexagonal.Infrastructure.InstitucionAtributo>().AddAsync(entity, cancellationToken);
+        await unitOfWork.Repository<EdumapHexagonal.Domain.Models.InstitucionAtributo>().AddAsync(entity, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return new InstitutionAttributeDto
@@ -34,3 +34,4 @@ internal sealed class CreateInstitutionAttributeCommandHandler(IUnitOfWork unitO
         };
     }
 }
+
