@@ -1,4 +1,5 @@
-﻿using MediatR;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using EdumapHexagonal.Application.DTOs.InstitutionSearchViews;
 using EdumapHexagonal.Application.UseCases.InstitutionSearchViews.Queries;
@@ -8,6 +9,7 @@ namespace EdumapHexagonal.Api.Controllers;
 [ApiController]
 [Route("api/institution-search-views")]
 [Produces("application/json")]
+[AllowAnonymous]
 public sealed class InstitutionSearchViewsController(ISender sender) : ControllerBase
 {
     [HttpGet]

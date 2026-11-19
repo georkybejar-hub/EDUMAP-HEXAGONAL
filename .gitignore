@@ -10,9 +10,15 @@ obj/
 *.userosscache
 *.sln.docstates
 
-# Dependencias y compilados (Node / Frontend si aplica)
+# Dependencias y compilados (Node / Frontend Vite / React)
 node_modules/
+**/node_modules/
 dist/
+**/dist/
+dist-ssr/
+.vite/
+**/.vite/
+*.local
 
 # Variables de entorno y secretos
 .env

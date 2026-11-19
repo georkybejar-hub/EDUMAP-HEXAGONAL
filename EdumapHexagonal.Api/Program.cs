@@ -31,8 +31,6 @@ app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseMiddleware<RoleBasedAccessMiddleware>();
-
 app.MapControllers();
 
 app.Run();

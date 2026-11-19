@@ -1,5 +1,7 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using EdumapHexagonal.Api.Configuration;
 using EdumapHexagonal.Application.DTOs.InstitutionAttributes;
 using EdumapHexagonal.Application.UseCases.InstitutionAttributes.Commands;
 using EdumapHexagonal.Application.UseCases.InstitutionAttributes.Queries;
@@ -8,10 +10,13 @@ namespace EdumapHexagonal.Api.Controllers;
 
 [ApiController]
 [Route("api/atributos-institucion")]
+[Route("api/institution-attributes")]
 [Produces("application/json")]
+[Authorize(Policy = ServiceRegistrationExtensions.AdministratorPolicy)]
 public sealed class InstitutionAttributesController(ISender sender) : ControllerBase
 {
     [HttpGet]
+    [AllowAnonymous]
     [ProducesResponseType<IReadOnlyList<InstitutionAttributeDto>>(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
     {
@@ -20,6 +25,7 @@ public sealed class InstitutionAttributesController(ISender sender) : Controller
     }
 
     [HttpGet("institucion/{idInstitucion:int}")]
+    [AllowAnonymous]
     [ProducesResponseType<IReadOnlyList<InstitutionAttributeDto>>(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetByInstitutionId(int idInstitucion, CancellationToken cancellationToken)
     {

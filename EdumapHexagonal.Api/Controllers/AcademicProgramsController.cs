@@ -1,5 +1,7 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using EdumapHexagonal.Api.Configuration;
 using EdumapHexagonal.Application.DTOs.AcademicPrograms;
 using EdumapHexagonal.Application.UseCases.AcademicPrograms.Commands;
 using EdumapHexagonal.Application.UseCases.AcademicPrograms.Queries;
@@ -9,9 +11,11 @@ namespace EdumapHexagonal.Api.Controllers;
 [ApiController]
 [Route("api/academic-programs")]
 [Produces("application/json")]
+[Authorize(Policy = ServiceRegistrationExtensions.AdministratorPolicy)]
 public sealed class AcademicProgramsController(ISender sender) : ControllerBase
 {
     [HttpGet]
+    [AllowAnonymous]
     [ProducesResponseType<IReadOnlyList<AcademicProgramDto>>(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
     {
@@ -20,6 +24,7 @@ public sealed class AcademicProgramsController(ISender sender) : ControllerBase
     }
 
     [HttpGet("{id:int}")]
+    [AllowAnonymous]
     [ProducesResponseType<AcademicProgramDto>(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken)

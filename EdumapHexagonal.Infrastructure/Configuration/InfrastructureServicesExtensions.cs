@@ -14,12 +14,13 @@ public static class InfrastructureServicesExtensions
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("DefaultConnection")
-                               ?? "Host=localhost;Database=edumap;Username=postgres;Password=postgres;Port=5432";
+            ?? throw new InvalidOperationException("Cadena de conexión 'DefaultConnection' no encontrada en la configuración.");
 
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseNpgsql(connectionString));
 
-        services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+        services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         services.AddScoped<IAuthService, AuthService>();

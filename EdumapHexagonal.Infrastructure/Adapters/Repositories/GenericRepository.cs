@@ -5,7 +5,7 @@ using EdumapHexagonal.Infrastructure.Contexts;
 
 namespace EdumapHexagonal.Infrastructure.Adapters.Repositories;
 
-public class Repository<T>(ApplicationDbContext context) : IRepository<T> where T : class
+public class GenericRepository<T>(ApplicationDbContext context) : IGenericRepository<T> where T : class
 {
     protected readonly ApplicationDbContext Context = context;
     protected readonly DbSet<T> DbSet = context.Set<T>();

@@ -2,7 +2,7 @@ using System.Linq.Expressions;
 
 namespace EdumapHexagonal.Application.Ports.Persistence;
 
-public interface IRepository<T> where T : class
+public interface IGenericRepository<T> where T : class
 {
     Task<T?> GetByIdAsync(object id, CancellationToken cancellationToken = default);
 
@@ -22,4 +22,8 @@ public interface IRepository<T> where T : class
     void Update(T entity);
 
     void Delete(T entity);
+}
+
+public interface IRepository<T> : IGenericRepository<T> where T : class
+{
 }

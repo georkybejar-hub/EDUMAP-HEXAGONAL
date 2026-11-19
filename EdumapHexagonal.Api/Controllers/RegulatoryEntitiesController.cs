@@ -1,5 +1,7 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using EdumapHexagonal.Api.Configuration;
 using EdumapHexagonal.Application.DTOs.RegulatoryEntities;
 using EdumapHexagonal.Application.UseCases.RegulatoryEntities.Commands;
 using EdumapHexagonal.Application.UseCases.RegulatoryEntities.Queries;
@@ -9,9 +11,11 @@ namespace EdumapHexagonal.Api.Controllers;
 [ApiController]
 [Route("api/regulatory-entities")]
 [Produces("application/json")]
+[Authorize(Policy = ServiceRegistrationExtensions.AdministratorPolicy)]
 public sealed class RegulatoryEntitiesController(ISender sender) : ControllerBase
 {
     [HttpGet]
+    [AllowAnonymous]
     [ProducesResponseType<IReadOnlyList<RegulatoryEntityDto>>(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
     {
@@ -20,6 +24,7 @@ public sealed class RegulatoryEntitiesController(ISender sender) : ControllerBas
     }
 
     [HttpGet("{id:int}")]
+    [AllowAnonymous]
     [ProducesResponseType<RegulatoryEntityDto>(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById(short id, CancellationToken cancellationToken)

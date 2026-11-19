@@ -1,5 +1,7 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using EdumapHexagonal.Api.Configuration;
 using EdumapHexagonal.Application.DTOs.EducationalOffers;
 using EdumapHexagonal.Application.UseCases.EducationalOffers.Commands;
 using EdumapHexagonal.Application.UseCases.EducationalOffers.Queries;
@@ -8,10 +10,13 @@ namespace EdumapHexagonal.Api.Controllers;
 
 [ApiController]
 [Route("api/ofertas-educativas")]
+[Route("api/educational-offers")]
 [Produces("application/json")]
+[Authorize(Policy = ServiceRegistrationExtensions.AdministratorPolicy)]
 public sealed class EducationalOffersController(ISender sender) : ControllerBase
 {
     [HttpGet]
+    [AllowAnonymous]
     [ProducesResponseType<IReadOnlyList<EducationalOfferDto>>(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
     {
@@ -20,6 +25,7 @@ public sealed class EducationalOffersController(ISender sender) : ControllerBase
     }
 
     [HttpGet("{id:int}")]
+    [AllowAnonymous]
     [ProducesResponseType<EducationalOfferDto>(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken)

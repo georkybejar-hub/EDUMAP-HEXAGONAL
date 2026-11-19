@@ -17,7 +17,14 @@ public static class ServiceRegistrationExtensions
             typeof(ApplicationAssemblyMarker).Assembly
         ));
 
-        var jwtKey = configuration["Jwt:Key"] ?? "SuperSecretKeyForEdumapHexagonalMustBe32CharsLong!";
+        var jwtKey = configuration["Jwt:Key"]
+            ?? throw new InvalidOperationException("La clave 'Jwt:Key' no está configurada.");
+
+        if (Encoding.UTF8.GetByteCount(jwtKey) < 32)
+        {
+            throw new InvalidOperationException("La clave 'Jwt:Key' debe tener al menos 32 caracteres (256 bits) para ser segura con HS256.");
+        }
+
         var jwtIssuer = configuration["Jwt:Issuer"] ?? "EdumapApi";
         var jwtAudience = configuration["Jwt:Audience"] ?? "EdumapUsers";
 
@@ -46,8 +53,9 @@ public static class ServiceRegistrationExtensions
             options.AddPolicy(AdministratorPolicy, policy => policy
                 .RequireAuthenticatedUser()
                 .RequireAssertion(context => context.User.HasClaim(claim =>
-                    claim.Type == ClaimTypes.Role &&
-                    string.Equals(claim.Value, "ADMINISTRADOR", StringComparison.OrdinalIgnoreCase))));
+                    (claim.Type == ClaimTypes.Role || claim.Type == "role") &&
+                    (string.Equals(claim.Value, "ADMINISTRADOR", StringComparison.OrdinalIgnoreCase) ||
+                     string.Equals(claim.Value, "ADMIN", StringComparison.OrdinalIgnoreCase)))));
         });
 
         services.AddSwaggerGen(c =>

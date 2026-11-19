@@ -27,7 +27,8 @@ public sealed class AuthService(IConfiguration configuration) : IAuthService
 
     public (string Token, DateTime ExpiresAt) GenerateJwtToken(int idUsuario, string email, string nombreRol)
     {
-        var key = configuration["Jwt:Key"] ?? "SuperSecretKeyForEdumapHexagonalMustBe32CharsLong!";
+        var key = configuration["Jwt:Key"]
+            ?? throw new InvalidOperationException("La clave 'Jwt:Key' no está configurada.");
         var issuer = configuration["Jwt:Issuer"] ?? "EdumapApi";
         var audience = configuration["Jwt:Audience"] ?? "EdumapUsers";
         var minutes = int.TryParse(configuration["Jwt:ExpirationMinutes"], out var m) ? m : 60;

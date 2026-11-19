@@ -1,6 +1,8 @@
-﻿
+
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using EdumapHexagonal.Api.Configuration;
 using EdumapHexagonal.Application.DTOs.InstitutionCategories;
 using EdumapHexagonal.Application.UseCases.InstitutionCategories.Commands;
 using EdumapHexagonal.Application.UseCases.InstitutionCategories.Queries;
@@ -10,9 +12,11 @@ namespace EdumapHexagonal.Api.Controllers;
 [ApiController]
 [Route("api/institution-categories")]
 [Produces("application/json")]
+[Authorize(Policy = ServiceRegistrationExtensions.AdministratorPolicy)]
 public sealed class InstitutionCategoriesController(ISender sender) : ControllerBase
 {
     [HttpGet]
+    [AllowAnonymous]
     [ProducesResponseType<IReadOnlyList<InstitutionCategoryDto>>(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
     {
@@ -21,6 +25,7 @@ public sealed class InstitutionCategoriesController(ISender sender) : Controller
     }
 
     [HttpGet("{id}")]
+    [AllowAnonymous]
     [ProducesResponseType<InstitutionCategoryDto>(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById(short id, CancellationToken cancellationToken)

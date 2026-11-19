@@ -7,15 +7,15 @@ public sealed class UnitOfWork(ApplicationDbContext context) : IUnitOfWork
 {
     private readonly Dictionary<Type, object> _repositories = new();
 
-    public IRepository<T> Repository<T>() where T : class
+    public IGenericRepository<T> Repository<T>() where T : class
     {
         if (!_repositories.TryGetValue(typeof(T), out var repository))
         {
-            repository = new Repository<T>(context);
+            repository = new GenericRepository<T>(context);
             _repositories[typeof(T)] = repository;
         }
 
-        return (IRepository<T>)repository;
+        return (IGenericRepository<T>)repository;
     }
 
     public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

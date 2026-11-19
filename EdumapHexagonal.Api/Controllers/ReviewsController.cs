@@ -68,11 +68,22 @@ public sealed class ReviewsController(ISender sender) : ControllerBase
     [ProducesResponseType<ReviewDetailDto>(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Update(int id, [FromBody] UpdateReviewCommand command, CancellationToken cancellationToken)
     {
         if (command.IdResena != 0 && command.IdResena != id)
             return BadRequest("El Id de la ruta no coincide con el Id del cuerpo.");
+
+        var existing = await sender.Send(new GetReviewByIdQuery(id), cancellationToken);
+        if (existing is null) return NotFound();
+
+        var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var isAdmin = User.IsInRole("ADMINISTRADOR") || User.IsInRole("ADMIN");
+        if (!isAdmin && (!int.TryParse(userIdClaim, out var currentUserId) || currentUserId != existing.IdUsuario))
+        {
+            return Forbid();
+        }
 
         var result = await sender.Send(command with { IdResena = id }, cancellationToken);
         return result is null ? NotFound() : Ok(result);
@@ -82,9 +93,20 @@ public sealed class ReviewsController(ISender sender) : ControllerBase
     [Authorize]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
     {
+        var existing = await sender.Send(new GetReviewByIdQuery(id), cancellationToken);
+        if (existing is null) return NotFound();
+
+        var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var isAdmin = User.IsInRole("ADMINISTRADOR") || User.IsInRole("ADMIN");
+        if (!isAdmin && (!int.TryParse(userIdClaim, out var currentUserId) || currentUserId != existing.IdUsuario))
+        {
+            return Forbid();
+        }
+
         var deleted = await sender.Send(new DeleteReviewCommand { IdResena = id }, cancellationToken);
         return deleted ? NoContent() : NotFound();
     }

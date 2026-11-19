@@ -11,6 +11,7 @@ namespace EdumapHexagonal.Api.Controllers;
 
 [ApiController]
 [Route("api/favoritos")]
+[Route("api/favorites")]
 [Produces("application/json")]
 [Authorize]
 public sealed class FavoritesController(ISender sender) : ControllerBase

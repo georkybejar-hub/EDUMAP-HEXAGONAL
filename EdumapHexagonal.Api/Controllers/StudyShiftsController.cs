@@ -1,5 +1,7 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using EdumapHexagonal.Api.Configuration;
 using EdumapHexagonal.Application.DTOs.StudyShifts;
 using EdumapHexagonal.Application.UseCases.StudyShifts.Commands;
 using EdumapHexagonal.Application.UseCases.StudyShifts.Queries;
@@ -9,9 +11,11 @@ namespace EdumapHexagonal.Api.Controllers;
 [ApiController]
 [Route("api/study-shifts")]
 [Produces("application/json")]
+[Authorize(Policy = ServiceRegistrationExtensions.AdministratorPolicy)]
 public sealed class StudyShiftsController(ISender sender) : ControllerBase
 {
     [HttpGet]
+    [AllowAnonymous]
     [ProducesResponseType<IReadOnlyList<StudyShiftDto>>(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
     {
@@ -20,6 +24,7 @@ public sealed class StudyShiftsController(ISender sender) : ControllerBase
     }
 
     [HttpGet("{id:int}")]
+    [AllowAnonymous]
     [ProducesResponseType<StudyShiftDto>(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById(short id, CancellationToken cancellationToken)

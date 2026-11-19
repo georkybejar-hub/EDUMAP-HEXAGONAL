@@ -1,5 +1,7 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using EdumapHexagonal.Api.Configuration;
 using EdumapHexagonal.Application.DTOs.Districts;
 using EdumapHexagonal.Application.UseCases.Districts.Commands;
 using EdumapHexagonal.Application.UseCases.Districts.Queries;
@@ -8,10 +10,13 @@ namespace EdumapHexagonal.Api.Controllers;
 
 [ApiController]
 [Route("api/distritos")]
+[Route("api/districts")]
 [Produces("application/json")]
+[Authorize(Policy = ServiceRegistrationExtensions.AdministratorPolicy)]
 public sealed class DistrictsController(ISender sender) : ControllerBase
 {
     [HttpGet]
+    [AllowAnonymous]
     [ProducesResponseType<IReadOnlyList<DistrictDto>>(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
     {
@@ -20,6 +25,7 @@ public sealed class DistrictsController(ISender sender) : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [AllowAnonymous]
     [ProducesResponseType<DistrictDto>(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById(short id, CancellationToken cancellationToken)

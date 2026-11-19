@@ -1,5 +1,7 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using EdumapHexagonal.Api.Configuration;
 using EdumapHexagonal.Application.DTOs.ContactChannels;
 using EdumapHexagonal.Application.UseCases.ContactChannels.Commands;
 using EdumapHexagonal.Application.UseCases.ContactChannels.Queries;
@@ -8,10 +10,13 @@ namespace EdumapHexagonal.Api.Controllers;
 
 [ApiController]
 [Route("api/canales-contacto")]
+[Route("api/contact-channels")]
 [Produces("application/json")]
+[Authorize(Policy = ServiceRegistrationExtensions.AdministratorPolicy)]
 public sealed class ContactChannelsController(ISender sender) : ControllerBase
 {
     [HttpGet]
+    [AllowAnonymous]
     [ProducesResponseType<IReadOnlyList<ContactChannelDto>>(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
     {
@@ -20,6 +25,7 @@ public sealed class ContactChannelsController(ISender sender) : ControllerBase
     }
 
     [HttpGet("{id:int}")]
+    [AllowAnonymous]
     [ProducesResponseType<ContactChannelDto>(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken)

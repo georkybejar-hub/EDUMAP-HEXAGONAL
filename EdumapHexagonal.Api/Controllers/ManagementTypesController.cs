@@ -1,6 +1,8 @@
-﻿
+
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using EdumapHexagonal.Api.Configuration;
 using EdumapHexagonal.Application.DTOs.ManagementTypes;
 using EdumapHexagonal.Application.UseCases.ManagementTypes.Commands;
 using EdumapHexagonal.Application.UseCases.ManagementTypes.Queries;
@@ -10,9 +12,11 @@ namespace EdumapHexagonal.Api.Controllers;
 [ApiController]
 [Route("api/management-types")]
 [Produces("application/json")]
+[Authorize(Policy = ServiceRegistrationExtensions.AdministratorPolicy)]
 public sealed class ManagementTypesController(ISender sender) : ControllerBase
 {
     [HttpGet]
+    [AllowAnonymous]
     [ProducesResponseType<IReadOnlyList<ManagementTypeDto>>(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
     {
@@ -24,6 +28,7 @@ public sealed class ManagementTypesController(ISender sender) : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [AllowAnonymous]
     [ProducesResponseType<ManagementTypeDto>(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById(short id, CancellationToken cancellationToken)
