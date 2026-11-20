@@ -1,9 +1,9 @@
-using System.Security.Claims;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using EdumapHexagonal.Api.Configuration;
 using EdumapHexagonal.Application.DTOs.ModerationReports;
+using EdumapHexagonal.Application.Ports.Authentication;
 using EdumapHexagonal.Application.UseCases.ModerationReports.Commands;
 using EdumapHexagonal.Application.UseCases.ModerationReports.Queries;
 
@@ -12,7 +12,7 @@ namespace EdumapHexagonal.Api.Controllers;
 [ApiController]
 [Route("api/moderation-reports")]
 [Produces("application/json")]
-public sealed class ModerationReportsController(ISender sender) : ControllerBase
+public sealed class ModerationReportsController(ISender sender, ICurrentUser currentUser) : ControllerBase
 {
     [HttpGet]
     [Authorize(Policy = ServiceRegistrationExtensions.AdministratorPolicy)]
@@ -55,10 +55,9 @@ public sealed class ModerationReportsController(ISender sender) : ControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Create([FromBody] CreateModerationReportCommand command, CancellationToken cancellationToken)
     {
-        var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (int.TryParse(userIdClaim, out var userId))
+        if (currentUser.IdUsuario.HasValue)
         {
-            command = command with { IdUsuarioReporta = userId };
+            command = command with { IdUsuarioReporta = currentUser.IdUsuario.Value };
         }
 
         var result = await sender.Send(command, cancellationToken);
