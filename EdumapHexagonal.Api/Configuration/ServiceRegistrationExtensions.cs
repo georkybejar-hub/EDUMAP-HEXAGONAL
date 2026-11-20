@@ -3,7 +3,9 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using EdumapHexagonal.Api.Authentication;
 using EdumapHexagonal.Application;
+using EdumapHexagonal.Application.Ports.Authentication;
 
 namespace EdumapHexagonal.Api.Configuration;
 
@@ -16,6 +18,9 @@ public static class ServiceRegistrationExtensions
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(
             typeof(ApplicationAssemblyMarker).Assembly
         ));
+
+        services.AddHttpContextAccessor();
+        services.AddScoped<ICurrentUser, HttpContextCurrentUser>();
 
         var jwtKey = configuration["Jwt:Key"]
             ?? throw new InvalidOperationException("La clave 'Jwt:Key' no está configurada.");

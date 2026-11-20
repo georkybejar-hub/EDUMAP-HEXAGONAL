@@ -1,8 +1,8 @@
-using System.Security.Claims;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using EdumapHexagonal.Application.DTOs.Reviews;
+using EdumapHexagonal.Application.Ports.Authentication;
 using EdumapHexagonal.Application.UseCases.Reviews.Commands;
 using EdumapHexagonal.Application.UseCases.Reviews.Queries;
 
@@ -11,7 +11,7 @@ namespace EdumapHexagonal.Api.Controllers;
 [ApiController]
 [Route("api/institutions/{idInstitucion:int}/reviews")]
 [Produces("application/json")]
-public sealed class ReviewsController(ISender sender) : ControllerBase
+public sealed class ReviewsController(ISender sender, ICurrentUser currentUser) : ControllerBase
 {
     [HttpGet]
     [AllowAnonymous]
@@ -55,11 +55,10 @@ public sealed class ReviewsController(ISender sender) : ControllerBase
         if (command.IdInstitucion != 0 && command.IdInstitucion != idInstitucion)
             return BadRequest("El Id de institución de la ruta no coincide con el del cuerpo.");
 
-        var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (!int.TryParse(userIdClaim, out var userId))
+        if (!currentUser.IdUsuario.HasValue)
             return Unauthorized("Usuario no identificado en el token de autenticación.");
 
-        var result = await sender.Send(command with { IdInstitucion = idInstitucion, IdUsuario = userId }, cancellationToken);
+        var result = await sender.Send(command with { IdInstitucion = idInstitucion, IdUsuario = currentUser.IdUsuario.Value }, cancellationToken);
         return CreatedAtAction(nameof(GetById), new { id = result.IdResena }, result);
     }
 
@@ -78,9 +77,7 @@ public sealed class ReviewsController(ISender sender) : ControllerBase
         var existing = await sender.Send(new GetReviewByIdQuery(id), cancellationToken);
         if (existing is null) return NotFound();
 
-        var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var isAdmin = User.IsInRole("ADMINISTRADOR") || User.IsInRole("ADMIN");
-        if (!isAdmin && (!int.TryParse(userIdClaim, out var currentUserId) || currentUserId != existing.IdUsuario))
+        if (!currentUser.IsAdmin && currentUser.IdUsuario != existing.IdUsuario)
         {
             return Forbid();
         }
@@ -100,9 +97,7 @@ public sealed class ReviewsController(ISender sender) : ControllerBase
         var existing = await sender.Send(new GetReviewByIdQuery(id), cancellationToken);
         if (existing is null) return NotFound();
 
-        var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var isAdmin = User.IsInRole("ADMINISTRADOR") || User.IsInRole("ADMIN");
-        if (!isAdmin && (!int.TryParse(userIdClaim, out var currentUserId) || currentUserId != existing.IdUsuario))
+        if (!currentUser.IsAdmin && currentUser.IdUsuario != existing.IdUsuario)
         {
             return Forbid();
         }
