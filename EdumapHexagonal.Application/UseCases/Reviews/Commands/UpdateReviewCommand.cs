@@ -15,12 +15,23 @@ public sealed record UpdateReviewCommand : IRequest<ReviewDetailDto?>
 internal sealed class UpdateReviewCommandHandler(IUnitOfWork unitOfWork)
     : IRequestHandler<UpdateReviewCommand, ReviewDetailDto?>
 {
-    public async Task<ReviewDetailDto?> Handle(UpdateReviewCommand request, CancellationToken cancellationToken)
+    public async Task<ReviewDetailDto?> Handle(
+        UpdateReviewCommand request,
+        CancellationToken cancellationToken)
     {
-        var repository = unitOfWork.Repository<EdumapHexagonal.Domain.Models.Resena>();
+        var repository = unitOfWork
+            .Repository<EdumapHexagonal.Domain.Models.Resena>();
 
-        var entity = await repository.GetByIdAsync(request.IdResena, cancellationToken);
+        var entity = await repository.GetByIdAsync(
+            request.IdResena, cancellationToken);
+
         if (entity is null) return null;
+
+        if (request.Puntuacion < 1 || request.Puntuacion > 5)
+        {
+            throw new ArgumentException(
+                "La puntuación debe estar comprendida entre 1 y 5 estrellas.");
+        }
 
         entity.Puntuacion = request.Puntuacion;
         entity.Comentario = request.Comentario;
@@ -43,4 +54,3 @@ internal sealed class UpdateReviewCommandHandler(IUnitOfWork unitOfWork)
         };
     }
 }
-
