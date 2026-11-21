@@ -8,6 +8,7 @@ namespace EdumapHexagonal.Api.Controllers;
 
 [ApiController]
 [Route("api/institution-search-views")]
+[Route("api/buscador-instituciones")]
 [Produces("application/json")]
 [AllowAnonymous]
 public sealed class InstitutionSearchViewsController(ISender sender) : ControllerBase
@@ -33,6 +34,21 @@ public sealed class InstitutionSearchViewsController(ISender sender) : Controlle
                 Page = page,
                 PageSize = pageSize
             },
+            cancellationToken);
+
+        return Ok(result);
+    }
+
+    [HttpGet("comparar")]
+    [ProducesResponseType<IReadOnlyList<InstitutionSearchViewDto>>(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Compare(
+        [FromQuery] int[] ids,
+        CancellationToken cancellationToken = default)
+    {
+        var result = await sender.Send(
+            new CompareInstitutionsQuery { InstitutionIds = ids },
             cancellationToken);
 
         return Ok(result);
