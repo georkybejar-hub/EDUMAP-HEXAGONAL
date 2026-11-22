@@ -21,6 +21,8 @@ public static class InfrastructureServicesExtensions
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+        services.AddScoped<IEstimatedOfferReader, EstimatedOfferReader>();
+
         services.AddScoped<IAuthService, AuthService>();
 
         return services;

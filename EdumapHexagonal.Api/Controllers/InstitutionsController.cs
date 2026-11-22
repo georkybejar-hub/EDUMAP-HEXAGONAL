@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using EdumapHexagonal.Api.Configuration;
 using EdumapHexagonal.Application.DTOs.Institutions;
+using EdumapHexagonal.Application.DTOs.InstitutionProfiles;
 using EdumapHexagonal.Application.UseCases.Institutions.Commands;
 using EdumapHexagonal.Application.UseCases.Institutions.Queries;
+using EdumapHexagonal.Application.UseCases.InstitutionProfiles.Queries;
 
 namespace EdumapHexagonal.Api.Controllers;
 
@@ -37,6 +39,16 @@ public sealed class InstitutionsController(ISender sender) : ControllerBase
             new GetInstitutionByIdQuery { IdInstitucion = id },
             cancellationToken);
 
+        return result is null ? NotFound() : Ok(result);
+    }
+
+    [HttpGet("{id:int}/profile")]
+    [AllowAnonymous]
+    [ProducesResponseType<InstitutionProfileDto>(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetProfile(int id, CancellationToken cancellationToken)
+    {
+        var result = await sender.Send(new GetInstitutionProfileQuery(id), cancellationToken);
         return result is null ? NotFound() : Ok(result);
     }
 
