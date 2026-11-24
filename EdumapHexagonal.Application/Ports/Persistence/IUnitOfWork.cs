@@ -1,6 +1,6 @@
 namespace EdumapHexagonal.Application.Ports.Persistence;
 
-public interface IUnitOfWork : IDisposable
+public interface IUnitOfWork
 {
     IGenericRepository<T> Repository<T>() where T : class;
 

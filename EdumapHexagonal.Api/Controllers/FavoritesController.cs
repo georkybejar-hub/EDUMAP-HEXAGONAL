@@ -1,9 +1,9 @@
-using System.Security.Claims;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using EdumapHexagonal.Api.Configuration;
 using EdumapHexagonal.Application.DTOs.Favorites;
+using EdumapHexagonal.Application.Ports.Authentication;
 using EdumapHexagonal.Application.UseCases.Favorites.Commands;
 using EdumapHexagonal.Application.UseCases.Favorites.Queries;
 
@@ -14,7 +14,7 @@ namespace EdumapHexagonal.Api.Controllers;
 [Route("api/favorites")]
 [Produces("application/json")]
 [Authorize]
-public sealed class FavoritesController(ISender sender) : ControllerBase
+public sealed class FavoritesController(ISender sender, ICurrentUser currentUser) : ControllerBase
 {
     [HttpGet]
     [Authorize(Policy = ServiceRegistrationExtensions.AdministratorPolicy)]
@@ -32,10 +32,9 @@ public sealed class FavoritesController(ISender sender) : ControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> GetMyFavorites(CancellationToken cancellationToken)
     {
-        var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (!int.TryParse(userIdClaim, out var idUsuario)) return Unauthorized();
+        if (!currentUser.IdUsuario.HasValue) return Unauthorized();
 
-        var result = await sender.Send(new GetFavoritesByUserQuery { IdUsuario = idUsuario }, cancellationToken);
+        var result = await sender.Send(new GetFavoritesByUserQuery { IdUsuario = currentUser.IdUsuario.Value }, cancellationToken);
         return Ok(result);
     }
 
@@ -45,9 +44,7 @@ public sealed class FavoritesController(ISender sender) : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public async Task<IActionResult> GetByUserId(int idUsuario, CancellationToken cancellationToken)
     {
-        var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var isAdmin = User.IsInRole("ADMINISTRADOR") || User.IsInRole("ADMIN");
-        if (!isAdmin && (!int.TryParse(userIdClaim, out var currentUserId) || currentUserId != idUsuario))
+        if (!currentUser.IsAdmin && currentUser.IdUsuario != idUsuario)
         {
             return Forbid();
         }
@@ -63,9 +60,7 @@ public sealed class FavoritesController(ISender sender) : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById(int idUsuario, int idInstitucion, CancellationToken cancellationToken)
     {
-        var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var isAdmin = User.IsInRole("ADMINISTRADOR") || User.IsInRole("ADMIN");
-        if (!isAdmin && (!int.TryParse(userIdClaim, out var currentUserId) || currentUserId != idUsuario))
+        if (!currentUser.IsAdmin && currentUser.IdUsuario != idUsuario)
         {
             return Forbid();
         }
@@ -80,11 +75,9 @@ public sealed class FavoritesController(ISender sender) : ControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Create([FromBody] CreateFavoriteCommand command, CancellationToken cancellationToken)
     {
-        var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var isAdmin = User.IsInRole("ADMINISTRADOR") || User.IsInRole("ADMIN");
-        if (!isAdmin && int.TryParse(userIdClaim, out var currentUserId))
+        if (!currentUser.IsAdmin && currentUser.IdUsuario.HasValue)
         {
-            command = command with { IdUsuario = currentUserId };
+            command = command with { IdUsuario = currentUser.IdUsuario.Value };
         }
 
         var result = await sender.Send(command, cancellationToken);
@@ -98,9 +91,7 @@ public sealed class FavoritesController(ISender sender) : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete(int idUsuario, int idInstitucion, CancellationToken cancellationToken)
     {
-        var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var isAdmin = User.IsInRole("ADMINISTRADOR") || User.IsInRole("ADMIN");
-        if (!isAdmin && (!int.TryParse(userIdClaim, out var currentUserId) || currentUserId != idUsuario))
+        if (!currentUser.IsAdmin && currentUser.IdUsuario != idUsuario)
         {
             return Forbid();
         }
@@ -115,10 +106,9 @@ public sealed class FavoritesController(ISender sender) : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteMine(int idInstitucion, CancellationToken cancellationToken)
     {
-        var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (!int.TryParse(userIdClaim, out var currentUserId)) return Unauthorized();
+        if (!currentUser.IdUsuario.HasValue) return Unauthorized();
 
-        var deleted = await sender.Send(new DeleteFavoriteCommand { IdUsuario = currentUserId, IdInstitucion = idInstitucion }, cancellationToken);
+        var deleted = await sender.Send(new DeleteFavoriteCommand { IdUsuario = currentUser.IdUsuario.Value, IdInstitucion = idInstitucion }, cancellationToken);
         return deleted ? NoContent() : NotFound();
     }
 }
