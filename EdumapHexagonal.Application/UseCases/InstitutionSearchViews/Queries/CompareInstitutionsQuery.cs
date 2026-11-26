@@ -17,27 +17,42 @@ internal sealed class CompareInstitutionsQueryHandler(IUnitOfWork unitOfWork)
         CompareInstitutionsQuery request,
         CancellationToken cancellationToken)
     {
-        if (request.InstitutionIds == null || request.InstitutionIds.Count < 2)
-        {
-            throw new ArgumentException("Debe seleccionar al menos 2 instituciones para comparar.");
-        }
+        var distinctIds = request.InstitutionIds?
+            .Distinct()
+            .ToList() ?? new List<int>();
 
-        var distinctIds = request.InstitutionIds.Distinct().ToList();
+        if (distinctIds.Count < 2)
+        {
+            throw new ArgumentException(
+                "Debe seleccionar al menos 2 instituciones diferentes para comparar.");
+        }
 
         var entities = await unitOfWork
             .Repository<VwBuscadorInstitucione>()
-            .GetAllAsync(e => e.IdInstitucion.HasValue && distinctIds.Contains(e.IdInstitucion.Value), cancellationToken);
+            .GetAllAsync(
+                e => e.IdInstitucion.HasValue &&
+                     distinctIds.Contains(e.IdInstitucion.Value),
+                cancellationToken);
 
         if (entities.Count != distinctIds.Count)
         {
-            throw new KeyNotFoundException("Una o más instituciones seleccionadas no fueron encontradas.");
+            throw new KeyNotFoundException(
+                "Una o más instituciones seleccionadas no fueron encontradas.");
         }
 
-        // Regla de Negocio: Validar que todas las instituciones pertenezcan a la misma categoría educativa
-        var categories = entities.Select(e => e.IdCategoria).Distinct().ToList();
+        // Regla de negocio: validar que todas las instituciones
+        // pertenezcan a la misma categoría educativa.
+        var categories = entities
+            .Select(e => e.IdCategoria)
+            .Distinct()
+            .ToList();
+
         if (categories.Count > 1)
         {
-            var categoryNames = string.Join(", ", entities.Select(e => e.NombreCategoria).Distinct());
+            var categoryNames = string.Join(
+                ", ",
+                entities.Select(e => e.NombreCategoria).Distinct());
+
             throw new InvalidOperationException(
                 $"Solo se pueden comparar instituciones de la misma categoría educativa. Categorías seleccionadas: {categoryNames}.");
         }
